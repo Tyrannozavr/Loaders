@@ -27,5 +27,13 @@
 </template>
 
 <script setup>
-defineProps(['incidents']);
+const props = defineProps(['activeRowId']);
+if (props.activeRowId) {
+  incidents = ref([{
+    id: 1,
+    startDate: Date.now(),
+    endDate: Date.now(),
+    description: 'description'
+  }])
+}
 </script>

@@ -35,17 +35,25 @@ const activateRow = (rowId) => activeRowId.value = rowId
 <template>
   <h1 class="font-bold text-2xl">Справочник {{directory.name}}</h1>
   <DirectorySearch />
-  <DirectoryLoaderTable
-      :loaders="Loaders"
-      @refresh="refresh"
-      @activateRow="activateRow"
-  />
-<!--  <DirectoryIncidentTable />-->
-  incident talbe ablut {{activeRowId}}
+
+  <div class="table_container">
+    <DirectoryLoaderTable
+        :loaders="Loaders"
+        @refresh="refresh"
+        @activateRow="activateRow"
+    />
+    <DirectoryIncidentTable />
+  </div>
+
 </template>
 
 <style scoped>
 h1 {
   margin-bottom: 10px;
+}
+.table_container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 </style>
