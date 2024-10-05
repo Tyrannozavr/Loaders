@@ -1,11 +1,10 @@
 <script setup>
 const props = defineProps(['loaders']);
-defineEmits(['refresh'])
+const emits = defineEmits(['refresh', 'activateRow'])
 const addRow = () => {
   props.loaders.push({creation: true})
 }
-const activeRow = ref({})
-const activateRow = (row) => activeRow.value = row
+const activateRow = (loader) => emits('activateRow', loader.id)
 </script>
 <template>
   <UButton
@@ -41,7 +40,6 @@ const activateRow = (row) => activeRow.value = row
       </tbody>
     </table>
   </div>
-  active row is {{activeRow}}
 </template>
 
 <style scoped>
