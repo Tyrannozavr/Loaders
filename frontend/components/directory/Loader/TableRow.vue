@@ -24,23 +24,20 @@ const editRow = () => {
 const saveRow = () => {
   underEdition.value = false
 }
-const Brand = ref(props.loader.brand)
-const Number = ref(props.loader.number)
-const Capacity = ref(props.loader.capacity)
 </script>
 
 <template>
   <tr style="height:10px" :key="loader.id">
     <td>{{ loader.id }}</td>
     <slot v-if="(!underEdition)">
-      <td>{{ Brand }}</td>
-      <td>{{ Number }}</td>
-      <td>{{ Capacity }}</td>
+      <td>{{ loader.brand }}</td>
+      <td>{{ loader.number }}</td>
+      <td>{{ loader.capacity }}</td>
     </slot>
     <slot v-else>
-      <td><UInput v-model="Brand"/></td>
-      <td><UInput v-model="Number"/></td>
-      <td><UInput type="number" v-model="Capacity"/></td>
+      <td><UInput v-model="loader.brand"/></td>
+      <td><UInput v-model="loader.number"/></td>
+      <td><UInput type="number" v-model="loader.capacity"/></td>
     </slot>
 
     <td>

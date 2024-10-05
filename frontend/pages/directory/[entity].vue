@@ -18,10 +18,6 @@ const Loaders = ref([
   },
 
 ])
-Loaders.value = [...Loaders.value, ...Loaders.value, ...Loaders.value]
-Loaders.value = [...Loaders.value, ...Loaders.value, ...Loaders.value]
-Loaders.value = [...Loaders.value, ...Loaders.value, ...Loaders.value]
-Loaders.value = [...Loaders.value, ...Loaders.value, ...Loaders.value]
 </script>
 
 <template>
