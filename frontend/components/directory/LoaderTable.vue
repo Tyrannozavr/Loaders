@@ -1,3 +1,16 @@
+<script setup>
+defineProps(['loaders']);
+const formatDate = (datetime) => {
+  const date = new Date(datetime);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const year = date.getFullYear();
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${day}.${month}.${year} ${hours}:${minutes}`;
+}
+</script>
 <template>
   <div class="table-container">
     <table
@@ -37,11 +50,22 @@
             />
           </div>
         </td>
-        <td>{{ loader.datetime }}</td>
+        <td>{{ formatDate(loader.datetime) }}</td>
         <td>{{ loader.user }}</td>
-        <td>
-          <button @click="$emit('edit', loader)">Изменить</button>
-          <button @click="$emit('delete', loader)">Удалить</button>
+        <td class="edit_cell">
+          <button @click="$emit('edit', loader)">
+            <UIcon
+                name="rivet-icons:pencil-solid"
+                class="text-gray-500 w-5 h-5"
+            />
+
+          </button>
+          <button @click="$emit('delete', loader)">
+            <UIcon
+                name="rivet-icons:close"
+                class="text-gray-500 w-5 h-5"
+            />
+          </button>
         </td>
       </tr>
       </tbody>
@@ -49,10 +73,6 @@
   </div>
 
 </template>
-
-<script setup>
-defineProps(['loaders']);
-</script>
 <style scoped>
 .table-container {
   max-height: 600px; /* Set a maximum height for the container */
@@ -68,6 +88,7 @@ th, td {
   border-bottom: 1px solid #ccc;
   padding: 8px; /* Add some padding for better spacing */
 }
+
 .is_active {
   border-width: 1px; /* Ensure border width is 1px */
   width: 90%;
@@ -76,8 +97,15 @@ th, td {
   margin-right: auto;
   text-align: center;
   vertical-align: middle;
+
   & span {
     margin: auto;
   }
+}
+.edit_cell {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
 }
 </style>
