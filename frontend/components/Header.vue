@@ -1,25 +1,19 @@
 <template>
-  <header class="header">
+  <header class="header min-h-20">
     <div class="container">
-      <h1>Справочник Погрузчиков</h1>
       <nav>
-        <ul>
-          <li v-if="!isLoggedIn">
-            <button @click="goToLogin">Вход</button>
-            <button @click="goToRegister">Регистрация</button>
-          </li>
-          <li v-else>
-            <button @click="goToProfile">Профиль</button>
-          </li>
-        </ul>
+        <UButton class="profile h-10 rounded-2xl font-bold"
+                 color="black"
+                 variant="solid">Профиль</UButton>
+<!--        <UButton class="profile" size="lg" color="black" variant="solid">Профиль</UButton>-->
       </nav>
     </div>
   </header>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import {ref} from 'vue';
+import {useRouter} from 'vue-router';
 
 const isLoggedIn = ref(false); // Замените это значение на актуальное состояние входа пользователя
 const router = useRouter();
@@ -43,24 +37,23 @@ const goToProfile = () => {
   color: white;
   padding: 10px 20px;
   margin: 2px 0 15px 0;
+  justify-content: center;
 }
 
 .container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100%;
 }
 
-nav ul {
-  list-style-type: none;
+nav {
+  width: 100%;
   display: flex;
-  gap: 15px;
+  align-items: center;
+  padding-top: 15px;
 }
 
-nav button {
-  background: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
+.profile {
+  margin-left: auto;
+  justify-content: center;
 }
 </style>

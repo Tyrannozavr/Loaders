@@ -39,10 +39,10 @@
 
 <script setup>
 import { ref } from 'vue';
-import LoaderTable from '@/components/LoaderTable.vue';
-import LoaderForm from '@/components/LoaderForm.vue';
-import IncidentTable from '@/components/IncidentTable.vue';
-import IncidentForm from '@/components/IncidentForm.vue';
+import LoaderTable from '~/components/directory/LoaderTable.vue';
+import LoaderForm from '~/components/directory/LoaderForm.vue';
+import IncidentTable from '~/components/directory/IncidentTable.vue';
+import IncidentForm from '~/components/directory/IncidentForm.vue';
 
 const loaders = ref([]);
 const searchQuery = ref('');
