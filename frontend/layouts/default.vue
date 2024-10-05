@@ -1,6 +1,6 @@
 <template>
   <div class="layout p-1 bg-white">
-    <div class="max-w-screen-2xl">
+    <div class="layout_container">
       <Header class="rounded-lg"/>
       <div class="content">
         <Sidebar class="bg-stone-300"/>
@@ -28,7 +28,6 @@ import Sidebar from '@/components/Sidebar.vue';
 .content {
   display: flex;
   flex-grow: 1; /* Основной контент занимает оставшееся пространство */
-  max-width: 1580px;
   gap: 20px;
 }
 
@@ -36,5 +35,7 @@ import Sidebar from '@/components/Sidebar.vue';
   flex-grow: 1; /* Занимает оставшееся пространство */
   padding: 5px 10px 5px 10px; /* Отступы для основного контента */
 }
-
+.layout_container {
+  max-width: 1600px;
+}
 </style>

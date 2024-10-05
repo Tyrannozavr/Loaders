@@ -12,16 +12,22 @@ const formatDate = (datetime) => {
 }
 </script>
 <template>
-  <div class="table-container w-2/4">
-    <table
-        class="bg-white"
-    >
+  <UButton
+      class="add_button bg-red-700 w-32 rounded-xl flex items-center justify-center"
+      size="md"
+      color="primary"
+  >Добавить</UButton>
+
+  <div class="table-container w-3/5">
+    <table class="bg-white">
       <thead>
-      <tr class="h-12">
+      <tr>
         <th>Код записи</th>
         <th>Марка</th>
         <th>Номер</th>
-        <th>Грузоподъемность</th>
+        <th>Грузоподъем
+          -ность
+        </th>
         <th>Активен</th>
         <th>Дата и время изменения</th>
         <th>Пользователь</th>
@@ -29,50 +35,36 @@ const formatDate = (datetime) => {
       </tr>
       </thead>
       <tbody>
-      <tr v-for="loader in loaders" :key="loader.id">
+      <tr style="height:10px" v-for="loader in loaders" :key="loader.id">
         <td>{{ loader.id }}</td>
         <td>{{ loader.brand }}</td>
-        <td>{{ loader.number }}</td>
+        <td class="w-5">{{ loader.number }}</td> <!-- Изменено на w-5 -->
         <td>{{ loader.capacity }}</td>
         <td>
-          <div
-              class="is_active rounded-xl border-1 border-gray-200 w-12 h-6"
-          >
-            <UIcon
-                name="mi:check"
-                v-if="loader.isActive"
-                class="text-green-700"
-            />
-            <UIcon
-                name="mi:close"
-                class="text-red-700"
-                v-else
-            />
+          <div class="is_active rounded-xl">
+            <UIcon name="mi:check" v-if="loader.isActive" class=" text-green-700"/>
+            <UIcon name="mi:close" class=" text-red-700" v-else/>
           </div>
         </td>
         <td>{{ formatDate(loader.datetime) }}</td>
         <td>{{ loader.user }}</td>
         <td class="edit_cell">
-          <button @click="$emit('edit', loader)">
-            <UIcon
-                name="rivet-icons:pencil-solid"
-                class="text-gray-500 w-5 h-5"
-            />
+          <div class="edit_container">
+            <button @click="$emit('edit', loader)">
+              <UIcon name="rivet-icons:pencil-solid" class="text-gray-500 w-5 h-5"/>
+            </button>
+            <button @click="$emit('delete', loader)">
+              <UIcon name="rivet-icons:close" class="text-gray-500 w-5 h-5"/>
+            </button>
+          </div>
 
-          </button>
-          <button @click="$emit('delete', loader)">
-            <UIcon
-                name="rivet-icons:close"
-                class="text-gray-500 w-5 h-5"
-            />
-          </button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-
 </template>
+
 <style scoped>
 .table-container {
   max-height: 600px; /* Set a maximum height for the container */
@@ -86,26 +78,29 @@ table {
 th, td {
   border-right: 1px solid #ccc; /* Right border for each cell */
   border-bottom: 1px solid #ccc;
-  padding: 8px; /* Add some padding for better spacing */
+  padding: 0 4px; /* Add some padding for better spacing */
+  text-align: center;
+}
+
+tr {
+  height: 10px;
 }
 
 .is_active {
   border-width: 1px; /* Ensure border width is 1px */
-  width: 90%;
+  width: 80%;
   height: 100%;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
   vertical-align: middle;
-
-  & span {
-    margin: auto;
-  }
 }
-.edit_cell {
+
+.edit_container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 5px;
 }
+
 </style>

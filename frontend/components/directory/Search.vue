@@ -32,6 +32,7 @@
   display: flex;
   flex-direction: row;
   gap: 15px;
+  margin-bottom: 40px;
 }
 .search_button {
   width: 120px;
