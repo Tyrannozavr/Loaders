@@ -41,7 +41,7 @@
 import { ref } from 'vue';
 import LoaderTable from '~/components/directory/Loader/Table.vue';
 import LoaderForm from '~/components/directory/LoaderForm.vue';
-import IncidentTable from '~/components/directory/IncidentTable.vue';
+import IncidentTable from '~/components/directory/Incident/Table.vue';
 import IncidentForm from '~/components/directory/IncidentForm.vue';
 
 const loaders = ref([]);
