@@ -4,6 +4,8 @@ defineEmits(['refresh'])
 const addRow = () => {
   props.loaders.push({creation: true})
 }
+const activeRow = ref({})
+const activateRow = (row) => activeRow.value = row
 </script>
 <template>
   <UButton
@@ -33,18 +35,27 @@ const addRow = () => {
             v-for="loader in loaders"
             :loader="loader"
             @refresh="$emit('refresh')"
+            class="loader_row"
+            @click="activateRow(loader)"
         />
       </tbody>
     </table>
   </div>
+  active row is {{activeRow}}
 </template>
 
 <style scoped>
+.loader_row {
+  cursor: pointer;
+  &:hover {
+    border: 2px solid red;
+  }
+}
+
 .table-container {
   max-height: 600px; /* Set a maximum height for the container */
   overflow-y: auto; /* Enable vertical scrolling */
 }
-
 table {
   border-collapse: collapse; /* Prevent double borders */
 }
