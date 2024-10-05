@@ -12,12 +12,12 @@ const formatDate = (datetime) => {
 }
 </script>
 <template>
-  <div class="table-container">
+  <div class="table-container w-2/4">
     <table
         class="bg-white"
     >
       <thead>
-      <tr>
+      <tr class="h-12">
         <th>Код записи</th>
         <th>Марка</th>
         <th>Номер</th>

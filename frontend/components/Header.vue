@@ -2,7 +2,7 @@
   <header class="header min-h-20 bg-red-700">
     <div class="container">
       <nav>
-        <UButton class="profile h-10 rounded-2xl font-bold"
+        <UButton class="profile h-10 rounded-2xl font-bold w-36"
                  color="black"
                  variant="solid">Профиль</UButton>
 <!--        <UButton class="profile" size="lg" color="black" variant="solid">Профиль</UButton>-->
