@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <h1>Справочник Погрузчики</h1>
 
     <input v-model="searchQuery" placeholder="Номер погрузчика" />

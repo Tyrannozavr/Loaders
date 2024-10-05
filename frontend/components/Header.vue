@@ -42,6 +42,7 @@ const goToProfile = () => {
   background-color: red;
   color: white;
   padding: 10px 20px;
+  margin: 2px 0 15px 0;
 }
 
 .container {
