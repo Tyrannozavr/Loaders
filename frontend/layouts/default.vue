@@ -1,5 +1,5 @@
 <template>
-  <div class="layout bg-white p-1">
+  <div class="layout p-1 bg-white">
     <div class="max-w-screen-2xl">
       <Header class="rounded-lg"/>
       <div class="content">
@@ -29,12 +29,12 @@ import Sidebar from '@/components/Sidebar.vue';
   display: flex;
   flex-grow: 1; /* Основной контент занимает оставшееся пространство */
   max-width: 1580px;
+  gap: 20px;
 }
 
 .main-content {
   flex-grow: 1; /* Занимает оставшееся пространство */
   padding: 5px 10px 5px 10px; /* Отступы для основного контента */
-  //background: #ccc;
 }
 
 </style>

@@ -1,4 +1,5 @@
 <script setup>
+const route = useRoute()
 const items = [
   {
     link: '/users', name: 'Пользователи',
@@ -18,14 +19,18 @@ const items = [
   {
     link: '/directory', name: 'Справочники',
   },
-
 ]
 </script>
 <template>
   <aside class="sidebar">
     <ul>
       <li v-for="item in items">
-      <NuxtLink  :to="item.link">{{item.name}}</NuxtLink>
+        <NuxtLink
+            :to="item.link"
+            :class="{item_active : item.link === route.path}"
+        >
+          {{ item.name }}
+        </NuxtLink>
       </li>
     </ul>
   </aside>
@@ -36,7 +41,6 @@ const items = [
   border-radius: 10px; /* Закругленные края */
   padding: 20px;
   width: 200px; /* Ширина сайдбара */
-  margin-right: 10px;
 }
 
 .sidebar ul {
@@ -48,6 +52,7 @@ const items = [
   margin-bottom: 15px; /* Отступы между элементами */
   color: black;
 }
+
 .item_active {
   color: red;
 }
