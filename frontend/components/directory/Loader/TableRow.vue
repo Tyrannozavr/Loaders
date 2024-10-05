@@ -1,6 +1,15 @@
 <script setup lang="ts">
-const props = defineProps(['loader'])
+const props = defineProps({
+  loader: {
+    required: true,
+    type: Object
+  },
+})
+const emits = defineEmits(['refresh'])
 const formatDate = (datetime) => {
+  if (!datetime) {
+    return ''
+  }
   const date = new Date(datetime);
   const day = String(date.getDate()).padStart(2, '0');
   const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
@@ -11,6 +20,9 @@ const formatDate = (datetime) => {
   return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
 const underEdition = ref(false)
+if (props.loader.creation) {
+  underEdition.value = true
+}
 const User = ref()
 User.value = {"fio": "dmitry"}
 const toast = useToast()
@@ -23,6 +35,12 @@ const editRow = () => {
 }
 const saveRow = () => {
   underEdition.value = false
+}
+const deleteRow = () => {
+  if (!props.loader.creation) {
+    console.log('delete row')
+  }
+  emits('refresh')
 }
 </script>
 
@@ -41,10 +59,11 @@ const saveRow = () => {
     </slot>
 
     <td>
-      <div class="is_active rounded-xl">
+      <div class="is_active rounded-xl" v-if="loader.id">
         <UIcon name="mi:check" v-if="loader.isActive" class=" text-green-700"/>
         <UIcon name="mi:close" class=" text-red-700" v-else/>
       </div>
+      <div v-else></div>
     </td>
     <td>{{ formatDate(loader.datetime) }}</td>
     <td>{{ loader.user }}</td>
@@ -56,7 +75,7 @@ const saveRow = () => {
           <UIcon name="rivet-icons:check" class="text-gray-500 w-5 h-5"
                  v-else @click="saveRow"/>
         </button>
-        <button @click="$emit('delete', loader)">
+        <button @click="deleteRow">
           <UIcon name="rivet-icons:close" class="text-gray-500 w-5 h-5"/>
         </button>
       </div>

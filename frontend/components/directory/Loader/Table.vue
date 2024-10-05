@@ -1,11 +1,16 @@
 <script setup>
-defineProps(['loaders']);
+const props = defineProps(['loaders']);
+defineEmits(['refresh'])
+const addRow = () => {
+  props.loaders.push({creation: true})
+}
 </script>
 <template>
   <UButton
       class="add_button bg-red-700 w-32 rounded-xl flex items-center justify-center"
       size="md"
       color="primary"
+      @click="addRow"
   >Добавить</UButton>
   <div class="table-container w-3/5">
     <table class="bg-white">
@@ -24,7 +29,11 @@ defineProps(['loaders']);
       </tr>
       </thead>
       <tbody>
-        <DirectoryLoaderTableRow v-for="loader in loaders" :loader="loader"/>
+        <DirectoryLoaderTableRow
+            v-for="loader in loaders"
+            :loader="loader"
+            @refresh="$emit('refresh')"
+        />
       </tbody>
     </table>
   </div>
