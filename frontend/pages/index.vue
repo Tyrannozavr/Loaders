@@ -39,7 +39,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import LoaderTable from '~/components/directory/LoaderTable.vue';
+import LoaderTable from '~/components/directory/Loader/Table.vue';
 import LoaderForm from '~/components/directory/LoaderForm.vue';
 import IncidentTable from '~/components/directory/IncidentTable.vue';
 import IncidentForm from '~/components/directory/IncidentForm.vue';

@@ -5,7 +5,8 @@
       <div class="content">
         <Sidebar class="bg-stone-300"/>
         <main class="main-content rounded-lg bg-stone-300 text-black">
-          <NuxtPage/>
+            <NuxtPage/>
+          <UNotifications/>
         </main>
       </div>
     </div>
@@ -35,7 +36,8 @@ import Sidebar from '@/components/Sidebar.vue';
   flex-grow: 1; /* Занимает оставшееся пространство */
   padding: 5px 10px 5px 10px; /* Отступы для основного контента */
 }
+
 .layout_container {
-  max-width: 1600px;
+  max-width: 1700px;
 }
 </style>
