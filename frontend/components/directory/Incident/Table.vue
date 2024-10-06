@@ -14,7 +14,6 @@
         <DirectoryIncidentTableRow v-for="incident in $props.incidents" :incident="incident"/>
       </tbody>
     </table>
-    <button @click="$emit('add')">Добавить инцидент</button>
   </div>
 
 </template>

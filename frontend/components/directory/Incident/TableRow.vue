@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import formatDate from "~/utils/FormatData";
+
 const props = defineProps(['incident'])
 const downTime = computed(() => {
+  if (!props.incident.startDate instanceof Date) {
+    return ''
+  }
+
   let startDate = new Date(props.incident.startDate);
   let endDate = props.incident.endDate ? new Date(props.incident.endDate) : new Date();
-
-  // Calculate the difference in milliseconds
-  let diff = endDate - startDate;
+  if (!startDate) {
+    return ''
+  }
 
   // Calculate years, months, days, hours, and minutes
   let years = endDate.getFullYear() - startDate.getFullYear();
@@ -41,11 +46,11 @@ const downTime = computed(() => {
   let result = '';
 
   if (years > 0) {
-    result += `${years} лет ` ;
+    result += `${years} лет `;
   }
 
   if (months > 0) {
-    result += `${months} месяцев ` ;
+    result += `${months} месяцев `;
   }
 
   if (days > 0) {
@@ -57,21 +62,25 @@ const downTime = computed(() => {
   return result.trim(); // Remove any trailing whitespace
 });
 
-
+const isUnderEdition = ref(false)
 </script>
 
 <template>
-        <tr :key="incident.id">
-          <td>{{ formatDate(incident.startDate) }}</td>
-          <td>{{ formatDate(incident.endDate) }}</td>
-          <td>{{ downTime}}</td>
-          <td>{{ incident.description }}</td>
+  <tr :key="incident.id">
+    <td>{{ formatDate(incident.startDate) }}</td>
+    <td>{{ formatDate(incident.endDate) }}</td>
+    <td>{{ downTime }}</td>
+    <td>{{ incident.description }}</td>
 
-          <td>
-            <button @click="$emit('edit', incident)">Изменить</button>
-            <button @click="$emit('delete', incident)">Удалить</button>
-          </td>
-        </tr>
+    <td>
+      <DirectoryEditIcons
+          :is-under-edition="isUnderEdition"
+          @cancel="deleteRow"
+          @edit="editRow"
+          @save="saveRow"
+      />
+    </td>
+  </tr>
 </template>
 
 <style scoped>
@@ -85,4 +94,5 @@ th, td {
 tr {
   height: 10px;
 }
+
 </style>

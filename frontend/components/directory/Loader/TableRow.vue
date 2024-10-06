@@ -59,18 +59,12 @@ const deleteRow = () => {
     <td>{{ formatDate(loader.datetime) }}</td>
     <td>{{ loader.user }}</td>
     <td class="edit_cell">
-      <div class="edit_container">
-        <button>
-          <UIcon name="rivet-icons:pencil-solid" class="text-gray-500 w-5 h-5"
-                 v-if="(!underEdition)" @click="editRow" />
-          <UIcon name="rivet-icons:check" class="text-gray-500 w-5 h-5"
-                 v-else @click="saveRow"/>
-        </button>
-        <button @click="deleteRow">
-          <UIcon name="rivet-icons:close" class="text-gray-500 w-5 h-5"/>
-        </button>
-      </div>
-
+      <DirectoryEditIcons
+          :is-under-edition="underEdition"
+          @cancel="deleteRow"
+          @edit="editRow"
+          @save="saveRow"
+      />
     </td>
   </tr>
 </template>
@@ -87,12 +81,7 @@ const deleteRow = () => {
   vertical-align: middle;
 }
 
-.edit_container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 5px;
-}
+
 
 th, td {
   border-right: 1px solid #ccc; /* Right border for each cell */

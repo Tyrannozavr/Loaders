@@ -19,7 +19,7 @@ const loader = ref({
   ]
 })
 const addRow = () => {
-  console.log('add')
+  loader.value.incidentList.push({creation: true})
 }
 </script>
 

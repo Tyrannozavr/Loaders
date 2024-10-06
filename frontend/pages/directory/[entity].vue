@@ -29,7 +29,7 @@ const refresh = () => Loaders.value = [
   },
 ]
 const addRow = () => {
-  Loaders.push({creation: true})
+  Loaders.value.push({creation: true})
 }
 const activeRowId = ref()
 const activateRow = (rowId) => activeRowId.value = rowId
