@@ -12,8 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create(
             email=validated_data['email'],
             password=validated_data['password'],
-            phone=validated_data['phone'],
-            type=validated_data['type'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
             surname=validated_data['surname'],

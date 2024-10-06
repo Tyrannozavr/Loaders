@@ -30,8 +30,6 @@ class UserRegistrationView(APIView):
 
 class CustomAuthToken(APIView):
     def post(self, request, *args, **kwargs):
-        print('get', request.data)
-        return Response('all right', status=status.HTTP_200_OK)
         email = request.data.get('email', None)
         password = request.data.get('password', None)
         if not email:

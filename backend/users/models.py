@@ -39,6 +39,7 @@ class User(AbstractUser):
     surname = models.CharField(max_length=1000, null=True, blank=True, verbose_name="Отчество")
     first_name = models.CharField(max_length=1000, null=True, blank=True, verbose_name='Имя')
     last_name = models.CharField(max_length=1000, null=True, blank=True, verbose_name='Фамилия')
+    username = models.CharField(max_length=1000, null=True, blank=True)
 
     objects = CustomUserManager()
 
