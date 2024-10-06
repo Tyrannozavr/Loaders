@@ -6,14 +6,17 @@ const props = defineProps({
     type: Object
   },
 })
+const localLoader = ref(props.loader)
 const emits = defineEmits(['refresh'])
 
 
 const actions = ref([{
   label: 'Не сохранять',
   click: () => {
-    alert('edited!')
+    alert('not edited')
     underEdition.value = false
+    localLoader.value = props.loader
+
   }
 }, {
   label: 'Вернуться к редактированию',
@@ -61,9 +64,9 @@ const deleteRow = () => {
       <td>{{ loader.capacity }}</td>
     </slot>
     <slot v-else>
-      <td><UInput v-model="loader.brand"/></td>
-      <td><UInput v-model="loader.number"/></td>
-      <td><UInput type="number" v-model="loader.capacity"/></td>
+      <td><UInput v-model="localLoader.brand"/></td>
+      <td><UInput v-model="localLoader.number"/></td>
+      <td><UInput type="number" v-model="localLoader.capacity"/></td>
     </slot>
 
     <td>

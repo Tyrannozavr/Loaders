@@ -32,7 +32,7 @@ const incidentData = ref()
 const isModalActive = ref(false)
 const actions = ref([{
   label: 'Удалить',
-  click: () => alert('Delete!'+rowToDelete.value)
+  click: () => alert('Delete!' + rowToDelete.value)
 }, {
   label: 'Отмена',
 }])
