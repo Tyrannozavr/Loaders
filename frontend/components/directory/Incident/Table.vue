@@ -22,7 +22,6 @@
     </table>
     <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"
                             @close="isModalActive = false" @save="saveData"/>
-<!--    <UButton label="Show toast" @click="toast.add({ title: 'With actions', actions })"/>-->
   </div>
 </template>
 
@@ -37,9 +36,7 @@ const actions = ref([{
 }, {
   label: 'Отмена',
 }])
-
 const deleteRow = (rowId) => {
-  // console.log('delete row', rowId)
   rowToDelete.value = rowId
   toast.add({title: "Удалить информацию о простое? Вы уверены?", actions})
 }
