@@ -21,4 +21,6 @@ Content-Type: application/json
 }
 
 ###
-
+GET http://localhost:8000/api/loaders/
+Authorization: Token 941d623aae0a853459166354c7a91888e3757881
+Content-Type: application/json

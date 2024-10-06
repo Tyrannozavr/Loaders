@@ -7,17 +7,23 @@ const directory = ref({
 if (entity == 'loaders') {
   directory.value.name = 'Погрузчиков'
 }
-const Loaders = ref([
-  {
-    id: "1", brand: "Амкадор", number: "45-65_PH-1", capacity: "2.5", isActive: true,
-    datetime: Date.now(), user: "Иванов И.И."
-  },
-  {
-    id: "2", brand: "Амкадор", number: "45-65 PH-1", capacity: "2.5", isActive: false,
-    datetime: Date.now(), user: "Иванов И.И."
-  },
-
-])
+const $backend = Fetch()
+const Loaders = await $backend.get('loaders/')
+Loaders.map((item) => {
+  item.datetime = new Date(item.updated_at)
+  item.user = item.updated_by
+  item.isActive = item.is_active
+})
+// Loaders.forEach((item) => console.log('a', item))
+    // .then((res) => res)
+// console.log('new is', newLoaders)
+// const Loaders = ref([
+//   {
+//     id: "1", brand: "Амкадор", number: "45-65_PH-1", capacity: "2.5", isActive: true,
+//     datetime: Date.now(), user: "Иванов И.И."
+//   },
+// ])
+console.log('loaders', Loaders)
 const refresh = () => Loaders.value = [
   {
     id: "1", brand: "Амкадор", number: "45-65_PH-1", capacity: "2.5", isActive: true,
@@ -27,6 +33,15 @@ const refresh = () => Loaders.value = [
     id: "2", brand: "Амкадор", number: "45-65 PH-1", capacity: "2.5", isActive: false,
     datetime: Date.now(), user: "Иванов И.И."
   },
+  //     {
+  //   "id": 6,
+  //   "number": "аккп",
+  //   "capacity": "1.000",
+  //   "is_active": true,
+  //   "updated_at": "2024-10-06T20:18:22.049121Z",
+  //   "brand": 6,
+  //   "updated_by": 1
+  // }
 ]
 const addRow = () => {
   Loaders.value.push({creation: true})

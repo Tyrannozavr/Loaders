@@ -45,7 +45,7 @@ export default () => {
                 ...opt
             }).then(response => response.json());
         },
-        $get: (request, opt) => {
+        $get: (request, opt={}) => {
             return fetchWithAuth(request, 'GET', opt);
         },
         post: async (request, opt) => {
