@@ -28,7 +28,7 @@ export default () => {
             console.error(response.json())
             // throw new Error(HTTP error! status: ${response.status});
         }
-        return response.json(); // Parse JSON response
+        return response; // Parse JSON response
     }
 
     return {

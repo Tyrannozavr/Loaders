@@ -38,11 +38,11 @@ const editRow = () => {
     underEdition.value = true
   }
 }
-const saveRow = () => {
+const saveRow = async () => {
   underEdition.value = false
   if (props.loader.creation) {
     try {
-      const response = $backend.$post(`loaders/`, {
+      const response = await $backend.$post(`loaders/`, {
         body: {
           brand: localLoader.value.brand,
           number: localLoader.value.number,
@@ -50,13 +50,10 @@ const saveRow = () => {
         }
       })
       console.log('response is', response)
-      // if (status.value === 'error') {
-      //   console.log(data, error)
-      // }
-      // if (status.value === 'success') {
-      //   let token = data.value.token
-      //   nuxtStorage.localStorage.setData('access_token', token);
-      // }
+      if (response.status === 201) {
+      toast.add({title: "Отправлено успешно"})
+
+      }
     } catch (error) {
       console.error('Ошибка регистрации:', error);
     }
