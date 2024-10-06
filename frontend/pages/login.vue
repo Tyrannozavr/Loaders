@@ -9,19 +9,21 @@ const password = ref('');
 
 const login = async () => {
   try {
-    const {data, status, error} = await $backend.post('users/login/', {
+    const response = await $backend.post('users/login/', {
       body: {
         email: email.value,
-        password: password.value,
+        password: password.value
       }
     })
-    if (status.value === 'error') {
-      console.log(data, error)
-    }
-    if (status.value === 'success') {
-      let token = data.value.token
-      nuxtStorage.localStorage.setData('access_token', token);
-    }
+    console.log(response)
+    // if (status.value === 'error') {
+    //   console.log(data, error)
+    // }
+    // if (status.value === 'success') {
+    //   let token = data.value.token
+    //   nuxtStorage.localStorage.setData('access_token', token);
+    //   console.log('my token is', nuxtStorage.localStorage.getData('access_token'))
+    // }
   } catch (error) {
     console.error('Ошибка регистрации:', error);
   }

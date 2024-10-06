@@ -1,4 +1,3 @@
-import {useFetch} from "#app";
 import nuxtStorage from 'nuxt-storage';
 
 const settings = {
@@ -6,46 +5,78 @@ const settings = {
 }
 
 export function getUserToken() {
-    return nuxtStorage.get('access_token')
+    return nuxtStorage.localStorage.getData('access_token');
 }
 
 export default () => {
-    const config = useRuntimeConfig()
+    const config = useRuntimeConfig();
+
+    const fetchWithAuth = async (request, method, opt) => {
+        console.log('opt is', opt)
+        const response = await fetch(`${config.public.baseURL}${request}`, {
+            method: method,
+            headers: {
+                'Authorization': `Token ${getUserToken()}`,
+                'Content-Type': 'application/json', // Optional, depending on your API
+                ...opt.headers // Include any additional headers from options
+            },
+            ...opt
+        });
+
+        if (!response.ok) {
+            console.error(response.json())
+            // throw new Error(HTTP error! status: ${response.status});
+        }
+        return response.json(); // Parse JSON response
+    }
+
     return {
-        get: (request, opt = {}) => {
+        get: async (request, opt = {}) => {
             if (!opt.hasOwnProperty('server')) {
-                opt.server = true
+                opt.server = true;
             }
-            return useFetch(request, {baseURL: config.public.baseURL, ...opt})
+            return fetch(`${config.public.baseURL}${request}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...opt.headers
+                },
+                ...opt
+            }).then(response => response.json());
         },
         $get: (request, opt) => {
-            // console.log('token is', getUserToken())
-            return useFetch(request, {
-                baseURL: config.public.baseURL, ...opt, server: settings.SERVER,
-                onRequest({request, options}) {
-                    // Set the request headers
-                    options.headers = options.headers || {}
-                    options.headers.Authorization = `Token ${getUserToken()}`
-                }
-            })
+            return fetchWithAuth(request, 'GET', opt);
         },
-        post: (request, opt) => {
-            return useFetch(request, {
-                baseURL: config.public.baseURL, ...opt, server: settings.SERVER,
-                method: 'POST'
-            })
-        },
-        $post: (request, opt) => {
-            return useFetch(request, {
-                baseURL: config.public.baseURL, ...opt, server: settings.SERVER,
+        post: async (request, opt) => {
+            console.log('body is', opt.body)
+            return fetch(`${config.public.baseURL}${request}`, {
                 method: 'POST',
-                onRequest({request, options}) {
-                    // Set the request headers
-                    options.headers = options.headers || {}
-                    options.headers.Authorization = `Token ${getUserToken()}`
-                }
-            })
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(opt.body), // Ensure body is stringified
+            }).then(response => response.json());
         },
-
+        $post: (request, opt = {}) => {
+            return fetchWithAuth(request, 'POST', opt);
+        },
+        put: (request, opt) => {
+            return fetchWithAuth(request, 'PUT', opt);
+        },
+        $put: (request, opt) => {
+            return fetchWithAuth(request, 'PUT', opt);
+        },
+        patch: (request, opt) => {
+            return fetchWithAuth(request, 'PATCH', opt);
+        },
+        $patch: (request, opt) => {
+            return fetchWithAuth(request, 'PATCH', opt);
+        },
+        delete: (request, opt) => {
+            return fetchWithAuth(request, 'DELETE', opt);
+        },
+        $delete: (request, opt) => {
+            return fetchWithAuth(request, 'DELETE', opt);
+        },
     }
 }

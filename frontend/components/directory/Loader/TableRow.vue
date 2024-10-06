@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import formatDate from "~/utils/FormatData";
-
+import nuxtStorage from 'nuxt-storage';
+const $backend = Fetch()
 const props = defineProps({
   loader: {
     required: true,
@@ -39,6 +40,26 @@ const editRow = () => {
 }
 const saveRow = () => {
   underEdition.value = false
+  if (props.loader.creation) {
+    try {
+      const {data, status, error} = $backend.$post(`loaders/`, {
+        body: {
+          brand: localLoader.value.brand,
+          number: localLoader.value.number,
+          capacity: localLoader.value.capacity
+        }
+      })
+      if (status.value === 'error') {
+        console.log(data, error)
+      }
+      if (status.value === 'success') {
+        let token = data.value.token
+        nuxtStorage.localStorage.setData('access_token', token);
+      }
+    } catch (error) {
+      console.error('Ошибка регистрации:', error);
+    }
+  }
 }
 const deleteRow = () => {
   if (!props.loader.creation) {

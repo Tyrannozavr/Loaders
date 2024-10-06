@@ -1,0 +1,24 @@
+# curl -X POST http://your-api-url/loaders/
+#-H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+#-H "Content-Type: application/json"
+#-d '{
+#    "brand": 1,
+#    "number": "ABC123",
+#    "capacity": 10.500,
+#    "is_active": true,
+#    "updated_by": 1
+#}'
+POST http://localhost:8000/api/loaders/
+Authorization: Token 941d623aae0a853459166354c7a91888e3757881
+Content-Type: application/json
+
+{
+  "brand": 1,
+  "number": "ABC123",
+  "capacity": 10.500,
+  "is_active": true,
+  "updated_by": 1
+}
+
+###
+
