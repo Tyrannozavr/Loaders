@@ -1,4 +1,22 @@
-<script setup lang="ts">
+<template>
+  <tr :key="incident.id">
+    <td>{{incident.id}}</td>
+    <td>{{ formatDate(incident.startDate) }}</td>
+    <td>{{ formatDate(incident.endDate) }}</td>
+    <td>{{ downTime }}</td>
+    <td>{{ incident.description }}</td>
+
+    <td>
+      <DirectoryEditIcons
+          @cancel="deleteRow"
+          @edit="editRow"
+          @save="saveRow"
+      />
+    </td>
+  </tr>
+</template>
+
+<script setup>
 import formatDate from "~/utils/FormatData";
 
 const props = defineProps(['incident'])
@@ -63,25 +81,15 @@ const downTime = computed(() => {
 });
 
 const isUnderEdition = ref(false)
+const editRow = () => {
+  isUnderEdition.value = true
+  console.log('edit row', props.incident.id)
+}
+const deleteRow = () => {
+  console.log('delete row')
+}
+
 </script>
-
-<template>
-  <tr :key="incident.id">
-    <td>{{ formatDate(incident.startDate) }}</td>
-    <td>{{ formatDate(incident.endDate) }}</td>
-    <td>{{ downTime }}</td>
-    <td>{{ incident.description }}</td>
-
-    <td>
-      <DirectoryEditIcons
-          :is-under-edition="isUnderEdition"
-          @cancel="deleteRow"
-          @edit="editRow"
-          @save="saveRow"
-      />
-    </td>
-  </tr>
-</template>
 
 <style scoped>
 th, td {

@@ -3,6 +3,7 @@
     <table class="bg-white">
       <thead>
         <tr>
+          <th>Код записи</th>
           <th>Дата начала</th>
           <th>Дата окончания</th>
           <th>Время простоя</th>
