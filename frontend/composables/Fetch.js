@@ -5,14 +5,20 @@ const settings = {
 }
 
 export function getUserToken() {
-    return nuxtStorage.localStorage.getData('access_token');
+    // let accessData = nuxtStorage.localStorage.getData('access_token');
+    // console.log(accessData, typeof accessData)
+    // return JSON.stringify(accessData)
+    const tokenString = localStorage.getItem('access_token')
+    const token = JSON.parse(tokenString)
+    return token.value
 }
 
 export default () => {
     const config = useRuntimeConfig();
-
     const fetchWithAuth = async (request, method, opt) => {
-        console.log('opt is', opt)
+        console.log('fetch auth')
+    console.log('token is', getUserToken(), typeof getUserToken())
+
         const response = await fetch(`${config.public.baseURL}${request}`, {
             method: method,
             headers: {
@@ -48,7 +54,6 @@ export default () => {
             return fetchWithAuth(request, 'GET', opt);
         },
         post: async (request, opt) => {
-            console.log('body is', opt.body)
             return fetch(`${config.public.baseURL}${request}`, {
                 method: 'POST',
                 headers: {

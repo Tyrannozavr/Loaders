@@ -15,7 +15,8 @@ const login = async () => {
         password: password.value
       }
     })
-    console.log(response)
+    // console.log(response.token, typeof response)
+    nuxtStorage.localStorage.setData('access_token', response.token)
     // if (status.value === 'error') {
     //   console.log(data, error)
     // }
