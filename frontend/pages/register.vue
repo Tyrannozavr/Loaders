@@ -1,3 +1,43 @@
+
+<script setup>
+import nuxtStorage from 'nuxt-storage';
+const $backend = Fetch()
+
+
+const firstName = ref('');
+const surname = ref('');
+const lastName = ref('');
+const email = ref('');
+const password = ref('');
+const repeatPassword = ref('');
+
+const passwordMismatch = computed(() => password.value !== repeatPassword.value);
+
+const register = async () => {
+  if (passwordMismatch.value) return; // Prevent submission if passwords do not match
+
+  try {
+    const {data, status, error} = await $backend.post('users/registration/', {
+      body: {
+        first_name: firstName.value,
+        surname: surname.value,
+        last_name: lastName.value,
+        email: email.value,
+        password: password.value,
+      }
+    })
+    if (status.value === 'error') {
+      console.log(data, error)
+    }
+    if (status.value === 'success') {
+      let token = data.value.token
+      nuxtStorage.localStorage.setData('access_token', token);
+    }
+  } catch (error) {
+    console.error('Ошибка регистрации:', error);
+  }
+};
+</script>
 <template>
   <div class="flex items-center justify-center min-h-screen">
     <form @submit.prevent="register" class="bg-white p-6 rounded shadow-md w-96">
@@ -18,38 +58,6 @@
     </form>
   </div>
 </template>
-
-<script setup>
-const firstName = ref('');
-const surname = ref('');
-const lastName = ref('');
-const email = ref('');
-const password = ref('');
-const repeatPassword = ref('');
-
-const passwordMismatch = computed(() => password.value !== repeatPassword.value);
-
-const register = async () => {
-  if (passwordMismatch.value) return; // Prevent submission if passwords do not match
-
-  try {
-    const response = await $fetch('http://localhost:3000/register', {
-      method: 'POST',
-      body: {
-        first_name: firstName.value,
-        surname: surname.value,
-        last_name: lastName.value,
-        email: email.value,
-        password: password.value,
-      },
-    });
-    // Handle success response
-    console.log(response);
-  } catch (error) {
-    console.error('Ошибка регистрации:', error);
-  }
-};
-</script>
 
 <style>
 .input-field {
