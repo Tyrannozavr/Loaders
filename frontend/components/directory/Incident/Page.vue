@@ -47,7 +47,7 @@ const date = ref(new Date())
             <div class="modal_date_start">
               начало
               <UPopover :popper="{ placement: 'bottom-start' }">
-                <UButton icon="i-heroicons-calendar-days-20-solid" :label="format(date, 'd MMM, yyy')"/>
+                <UButton :label="format(date, 'dd.mm.yyyy HH:MM')"/>
 
                 <template #panel="{ close }">
                   <DatePicker v-model="date" is-required @close="close"/>
