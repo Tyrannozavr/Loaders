@@ -30,8 +30,11 @@ const attrs = {
 </script>
 
 <template>
-<!--  <VCalendarDatePicker v-model="date" v-bind="{ ...attrs, ...$attrs }"/>-->
-  <VCalendarDatePicker v-model="date"  mode="dateTime" is24hr />
+  <div class="container flex flex-col">
+    <VCalendarDatePicker v-model="date"  mode="dateTime" is24hr />
+    <UButton label="Очистить" @click="date = null"/>
+  </div>
+
 </template>
 
 <style>

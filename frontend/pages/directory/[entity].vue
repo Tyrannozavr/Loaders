@@ -53,7 +53,7 @@ const activateRow = (rowId) => activeRowId.value = rowId
         @activateRow="activateRow"
         class="w-3/5"
     />
-    <DirectoryIncidentPage :loader-id="activeRowId"/>
+    <DirectoryIncidentPage :loader-id="activeRowId" class="w-2/5"/>
   </div>
 
 </template>
