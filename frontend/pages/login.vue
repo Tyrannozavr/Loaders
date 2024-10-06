@@ -1,3 +1,32 @@
+<script setup>
+import { ref } from 'vue';
+import nuxtStorage from 'nuxt-storage';
+const $backend = Fetch()
+
+const email = ref('');
+const password = ref('');
+
+const login = async () => {
+  try {
+    const {data, status, error} = await $backend.post('users/login/', {
+      body: {
+        email: email.value,
+        password: password.value,
+      }
+    })
+    if (status.value === 'error') {
+      console.log(data, error)
+    }
+    if (status.value === 'success') {
+      let token = data.value.token
+      nuxtStorage.localStorage.setData('access_token', token);
+    }
+  } catch (error) {
+    console.error('Ошибка регистрации:', error);
+  }
+};
+</script>
+
 <template>
   <div class="flex items-center justify-center min-h-screen">
     <form @submit.prevent="login" class="bg-white p-6 rounded shadow-md w-96">
@@ -13,31 +42,6 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-
-const email = ref('');
-const password = ref('');
-
-const login = async () => {
-  try {
-    const response = await $fetch('http://localhost:3000/login', {
-      method: 'POST',
-      body: {
-        email: email.value,
-        password: password.value,
-      },
-    });
-    // Update access token
-    const accessToken = response.access;
-    console.log('Access Token:', accessToken);
-    // You can store the token in localStorage or Vuex store for later use
-    localStorage.setItem('access_token', accessToken);
-  } catch (error) {
-    console.error('Login failed:', error);
-  }
-};
-</script>
 
 <style>
 .input-field {
