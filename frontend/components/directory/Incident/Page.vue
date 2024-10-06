@@ -18,9 +18,13 @@ const loader = ref({
 
   ]
 })
+import { format } from 'date-fns'
+const isModalActive = ref(false)
 const addRow = () => {
-  loader.value.incidentList.push({creation: true})
+  isModalActive.value = true
+  // loader.value.incidentList.push({creation: true})
 }
+const date = ref(new Date())
 </script>
 
 <template>
@@ -35,6 +39,25 @@ const addRow = () => {
       >Добавить
       </UButton>
       <DirectoryIncidentTable :incidents="loader.incidentList"/>
+      <UModal v-model="isModalActive">
+        <div class="p-4">
+          Проблемы с погрузчиком? Опишите
+          <UDivider/>
+          <div class="modal_date_container">
+            <div class="modal_date_start">
+              начало
+              <UPopover :popper="{ placement: 'bottom-start' }">
+                <UButton icon="i-heroicons-calendar-days-20-solid" :label="format(date, 'd MMM, yyy')"/>
+
+                <template #panel="{ close }">
+                  <DatePicker v-model="date" is-required @close="close"/>
+                </template>
+              </UPopover>
+            </div>
+            <div class="modal_date_end">окончание</div>
+          </div>
+        </div>
+      </UModal>
     </div>
   </slot>
   <slot v-else></slot>

@@ -52,7 +52,7 @@ const deleteRow = () => {
     <td>
       <div class="is_active rounded-xl" v-if="loader.id">
         <UIcon name="mi:check" v-if="loader.isActive" class=" text-green-700"/>
-        <UIcon name="mi:close" class=" text-red-700" v-else/>
+        <UIcon name="mi:close" class=" text-red-700" v-else />
       </div>
       <div v-else></div>
     </td>

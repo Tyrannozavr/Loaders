@@ -1,21 +1,3 @@
-<template>
-  <tr :key="incident.id">
-    <td>{{incident.id}}</td>
-    <td>{{ formatDate(incident.startDate) }}</td>
-    <td>{{ formatDate(incident.endDate) }}</td>
-    <td>{{ downTime }}</td>
-    <td>{{ incident.description }}</td>
-
-    <td>
-      <DirectoryEditIcons
-          @cancel="deleteRow"
-          @edit="editRow"
-          @save="saveRow"
-      />
-    </td>
-  </tr>
-</template>
-
 <script setup>
 import formatDate from "~/utils/FormatData";
 
@@ -89,7 +71,28 @@ const deleteRow = () => {
   console.log('delete row')
 }
 
+const date = ref(new Date())
 </script>
+
+<template>
+  <tr :key="incident.id">
+    <td>{{ incident.id }}</td>
+    <td>{{ formatDate(incident.startDate) }}</td>
+    <td>{{ formatDate(incident.endDate) }}</td>
+    <td>{{ downTime }}</td>
+    <td>{{ incident.description }}</td>
+
+    <td>
+      <DirectoryEditIcons
+          @cancel="deleteRow"
+          @edit="editRow"
+      />
+    </td>
+  </tr>
+  <div>
+  </div>
+</template>
+
 
 <style scoped>
 th, td {
@@ -103,4 +106,9 @@ tr {
   height: 10px;
 }
 
+.modal_date_container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 </style>
