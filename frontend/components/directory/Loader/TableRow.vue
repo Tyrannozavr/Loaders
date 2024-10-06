@@ -29,7 +29,14 @@ const saveRow = () => {
 }
 const deleteRow = () => {
   if (!props.loader.creation) {
-    console.log('delete row')
+    if (!underEdition.value) {
+      console.log('delete row')
+    } else {
+      console.log('cancel edition')
+      underEdition.value = false
+    }
+  } else {
+    console.log('cancel creation')
   }
   emits('refresh')
 }

@@ -73,13 +73,6 @@ const incidentData = computed(() => {
     description: props.incident.description,
   }
 })
-// const editRow = () => {
-//   isUnderEdition.value = true
-//   console.log('edit row', props.incident.id)
-// }
-// const deleteRow = () => {
-//
-// }
 
 </script>
 
