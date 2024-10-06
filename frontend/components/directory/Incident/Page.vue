@@ -29,7 +29,6 @@ const incidentData = ref({
   description: '',
 })
 const saveData = () => {
-  console.log('process', incidentData.value)
   isModalActive.value = false
 }
 </script>
@@ -46,7 +45,7 @@ const saveData = () => {
       </UButton>
       <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"
                               @close="isModalActive = false" @save="saveData" />
-      <DirectoryIncidentTable :incidents="loader.incidentList"/>
+      <DirectoryIncidentTable :loader="loader"/>
 
     </div>
   </slot>

@@ -2,25 +2,38 @@
   <div class="table_container">
     <table class="bg-white">
       <thead>
-        <tr>
-          <th>Код записи</th>
-          <th>Дата начала</th>
-          <th>Дата окончания</th>
-          <th>Время простоя</th>
-          <th>Описание</th>
-          <th>Действия</th>
-        </tr>
+      <tr>
+        <th>Код записи</th>
+        <th>Дата начала</th>
+        <th>Дата окончания</th>
+        <th>Время простоя</th>
+        <th>Описание</th>
+        <th>Действия</th>
+      </tr>
       </thead>
       <tbody>
-        <DirectoryIncidentTableRow v-for="incident in $props.incidents" :incident="incident"/>
+      <DirectoryIncidentTableRow v-for="incident in $props.loader.incidentList"
+                                 :incident="incident"
+                                 :loader-number="loader.number"
+                                 @edit="editRow"
+                                 @delete="deleteRow"
+      />
       </tbody>
     </table>
+<!--    <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"-->
+<!--                            @close="isModalActive = false" @save="saveData"/>-->
   </div>
 
 </template>
 
 <script setup>
-defineProps(['incidents']);
+defineProps(['loader']);
+const deleteRow = (rowId) => {
+  console.log('delete row', rowId)
+}
+const editRow = (data) => {
+  console.log('edit row', data)
+}
 </script>
 <style scoped>
 .table_container {

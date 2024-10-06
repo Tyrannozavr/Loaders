@@ -1,7 +1,8 @@
 <script setup>
 import formatDate from "~/utils/FormatData";
 
-const props = defineProps(['incident'])
+const props = defineProps(['incident', 'loaderNumber'])
+defineEmits(['edit', 'delete'])
 const downTime = computed(() => {
   if (!props.incident.startDate instanceof Date) {
     return ''
@@ -63,15 +64,22 @@ const downTime = computed(() => {
 });
 
 const isUnderEdition = ref(false)
-const editRow = () => {
-  isUnderEdition.value = true
-  console.log('edit row', props.incident.id)
-}
-const deleteRow = () => {
-  console.log('delete row')
-}
+const incidentData = computed(() => {
+  return {
+    number: props.loaderNumber,
+    dateStart: props.incident.startDate,
+    dateEnd: props.incident.endDate,
+    description: props.incident.description,
+  }
+})
+// const editRow = () => {
+//   isUnderEdition.value = true
+//   console.log('edit row', props.incident.id)
+// }
+// const deleteRow = () => {
+//
+// }
 
-const date = ref(new Date())
 </script>
 
 <template>
@@ -84,13 +92,12 @@ const date = ref(new Date())
 
     <td>
       <DirectoryEditIcons
-          @cancel="deleteRow"
-          @edit="editRow"
+          @cancel="$emit('delete', incident.id)"
+          @edit="$emit('edit', incidentData)"
       />
     </td>
   </tr>
-  <div>
-  </div>
+
 </template>
 
 
