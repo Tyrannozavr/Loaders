@@ -7,6 +7,10 @@ const props = defineProps({
   modelValue: {
     type: [Date, Object] as PropType<DatePickerDate | null>,
     default: null
+  },
+  nullable: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -32,7 +36,7 @@ const attrs = {
 <template>
   <div class="container flex flex-col">
     <VCalendarDatePicker v-model="date"  mode="dateTime" is24hr />
-    <UButton label="Очистить" @click="date = null"/>
+    <UButton v-if="props.nullable" label="Очистить" @click="date = null" class="bg-red-700"/>
   </div>
 
 </template>

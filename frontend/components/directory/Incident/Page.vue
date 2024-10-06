@@ -50,7 +50,7 @@ const dateEnd = ref(null)
             <div class="modal_date_start">
               <UPopover :popper="{ placement: 'bottom-start' }">
                 Начало
-                <UButton :label="format(dateStart, 'dd.MM.yyyy HH:MM')" class="ml-4 mr-4 bg-red-700"/>
+                <UButton :label="format(dateStart, 'dd.MM.yyyy HH:MM')" class="ml-4 mr-4 bg-white text-black"/>
                 <template #panel="{ close }">
                   <DatePicker v-model="dateStart" is-required @close="close"/>
                 </template>
@@ -59,10 +59,10 @@ const dateEnd = ref(null)
             <div class="modal_date_end">
               <UPopover :popper="{ placement: 'bottom-start' }">
                 Окончание
-                <UButton v-if="dateEnd" :label="format(dateEnd, 'dd.MM.yyyy HH:MM')" class="ml-4 mr-4 bg-red-700"/>
-                <UButton v-else label="еще активен" class="ml-4 mr-4 bg-red-700"/>
+                <UButton v-if="dateEnd" :label="format(dateEnd, 'dd.MM.yyyy HH:MM')" class="ml-4 mr-4 bg-white text-black"/>
+                <UButton v-else label="еще активен" class="ml-4 mr-4 bg-white text-black"/>
                 <template #panel="{ close }">
-                  <DatePicker v-model="dateEnd" is-required @close="close"/>
+                  <DatePicker v-model="dateEnd" nullable @close="close"/>
                 </template>
               </UPopover>
             </div>
