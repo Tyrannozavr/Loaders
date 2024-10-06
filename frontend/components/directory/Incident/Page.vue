@@ -41,12 +41,12 @@ const dateEnd = ref(null)
       </UButton>
       <DirectoryIncidentTable :incidents="loader.incidentList"/>
       <UModal v-model="isModalActive">
-        <div class="p-4 bg-gray-200 rounded-2xl text-gray-700 font-semibold">
+        <div class="p-4 bg-gray-200 rounded-2xl text-gray-500 font-semibold">
           <div class="modal_header text-center">
             Проблемы с погрузчиком? Опишите
           </div>
           <UDivider/>
-          <div class="modal_date_container flex flex-row">
+          <div class="modal_date_container flex flex-row mb-4">
             <div class="modal_date_start">
               <UPopover :popper="{ placement: 'bottom-start' }">
                 Начало
@@ -59,13 +59,29 @@ const dateEnd = ref(null)
             <div class="modal_date_end">
               <UPopover :popper="{ placement: 'bottom-start' }">
                 Окончание
-                <UButton v-if="dateEnd" :label="format(dateEnd, 'dd.MM.yyyy HH:MM')" class="ml-4 mr-4 bg-white text-black"/>
+                <UButton v-if="dateEnd" :label="format(dateEnd, 'dd.MM.yyyy HH:MM')"
+                         class="ml-4 mr-4 bg-white text-black"/>
                 <UButton v-else label="еще активен" class="ml-4 mr-4 bg-white text-black"/>
                 <template #panel="{ close }">
                   <DatePicker v-model="dateEnd" nullable @close="close"/>
                 </template>
               </UPopover>
             </div>
+          </div>
+          <div class="content mb-4 flex flex-col gap-2">
+            описание инцидента
+            <textarea cols="50" rows="5" class="rounded-xl"></textarea>
+          </div>
+          <div class="modal_buttons flex justify-center gap-10">
+            <UButton
+                class="w-32 flex justify-center items-center
+                 bg-red-700"
+                label="Сохранить"
+            />
+            <UButton
+                class="w-32 flex justify-center items-center bg-gray-500 text-black"
+                label="Выход"
+            />
           </div>
         </div>
       </UModal>
@@ -77,5 +93,10 @@ const dateEnd = ref(null)
 <style scoped>
 .incident_header {
   margin-bottom: 5px;
+}
+
+textarea {
+  overflow: auto;
+  resize: none;
 }
 </style>
