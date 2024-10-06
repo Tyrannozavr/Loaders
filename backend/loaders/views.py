@@ -13,11 +13,9 @@ class LoaderListCreateView(generics.ListCreateAPIView):
 
     @permission_classes([IsAuthenticated])
     def create(self, request, *args, **kwargs):
-        # Perform any custom processing here
-        # For example, you might want to validate or modify the incoming data
         data = request.data
-        data['brand'] = Brand.objects.get_or_create(name=data['brand'])[0].id
-        data['updated_by'] = request.user.id
+        brand = Brand.objects.get_or_create(name=data['brand'])[0]
+        updated_by = request.user
 
         # Now use the modified data to create the object
         serializer = self.get_serializer(data=data)
@@ -25,7 +23,10 @@ class LoaderListCreateView(generics.ListCreateAPIView):
 
         # Save the new instance
         self.perform_create(serializer)
-
+        instance = serializer.save()
+        instance.updated_by = updated_by
+        instance.brand = brand
+        instance.save()
         # Return the response with the created object
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 

@@ -15,3 +15,6 @@ class LoaderSerializer(serializers.ModelSerializer):
             return obj.updated_by.get_full_name()
         else:
             return ''
+    def create(self, validated_data):
+        print('data is', validated_data)
+        return Loader.objects.create(**validated_data)

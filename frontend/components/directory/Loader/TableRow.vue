@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import formatDate from "~/utils/FormatData";
-import nuxtStorage from 'nuxt-storage';
 const $backend = Fetch()
 const props = defineProps({
   loader: {
@@ -49,13 +48,12 @@ const saveRow = async () => {
           capacity: localLoader.value.capacity
         }
       })
-      console.log('response is', response)
       if (response.status === 201) {
       toast.add({title: "Отправлено успешно"})
-
+      emits('refresh')
       }
     } catch (error) {
-      console.error('Ошибка регистрации:', error);
+      console.error('Ошибка:', error);
     }
   }
 }
