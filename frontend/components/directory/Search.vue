@@ -2,8 +2,8 @@
 const $backend = Fetch()
 
 const search = () => {
-  const response = $backend.$post('loaders/')
-  console.log(response, typeof response)
+  // const response = $backend.$post('loaders/')
+  // console.log(response, typeof response)
 }
 </script>
 
