@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import formatDate from "~/utils/FormatData";
+
 const props = defineProps({
   loader: {
     required: true,
@@ -64,15 +65,21 @@ const deleteRow = () => {
       <td>{{ loader.capacity }}</td>
     </slot>
     <slot v-else>
-      <td><UInput v-model="localLoader.brand"/></td>
-      <td><UInput v-model="localLoader.number"/></td>
-      <td><UInput type="number" v-model="localLoader.capacity"/></td>
+      <td>
+        <UInput v-model="localLoader.brand"/>
+      </td>
+      <td>
+        <UInput v-model="localLoader.number"/>
+      </td>
+      <td>
+        <UInput type="number" v-model="localLoader.capacity"/>
+      </td>
     </slot>
 
     <td>
       <div class="is_active rounded-xl" v-if="loader.id">
         <UIcon name="mi:check" v-if="loader.isActive" class=" text-green-700"/>
-        <UIcon name="mi:close" class=" text-red-700" v-else />
+        <UIcon name="mi:close" class=" text-red-700" v-else/>
       </div>
       <div v-else></div>
     </td>
@@ -100,7 +107,6 @@ const deleteRow = () => {
   text-align: center;
   vertical-align: middle;
 }
-
 
 
 th, td {
