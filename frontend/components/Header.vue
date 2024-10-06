@@ -3,7 +3,7 @@
     <div class="container">
       <nav>
         <UButton class="profile h-10 rounded-2xl font-bold w-36"
-                 color="black"
+                 color="white"
                  variant="solid">Профиль</UButton>
 <!--        <UButton class="profile" size="lg" color="black" variant="solid">Профиль</UButton>-->
       </nav>
