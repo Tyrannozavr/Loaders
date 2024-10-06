@@ -45,7 +45,8 @@ const dateEnd = ref(null)
           <div class="modal_header text-center">
             Проблемы с погрузчиком? Опишите
           </div>
-          <UDivider/>
+          <div class="modal_divider bg-red-700 h-0.5 w-full my-2 mb-3"></div>
+
           <div class="modal_date_container flex flex-row mb-4">
             <div class="modal_date_start">
               <UPopover :popper="{ placement: 'bottom-start' }">
