@@ -20,20 +20,53 @@
       />
       </tbody>
     </table>
-<!--    <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"-->
-<!--                            @close="isModalActive = false" @save="saveData"/>-->
+    <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"
+                            @close="isModalActive = false" @save="saveData"/>
   </div>
-
 </template>
 
 <script setup>
-defineProps(['loader']);
+const props = defineProps(['loader']);
+const toast = useToast()
+const incidentData = ref()
+const isModalActive = ref(false)
+const actions = ref([{
+  label: 'Action 1',
+  click: () => alert('Action 1 clicked!')
+}, {
+  label: 'Action 2',
+  click: () => alert('Action 2 clicked!')
+}])
+
 const deleteRow = (rowId) => {
   console.log('delete row', rowId)
+
 }
 const editRow = (data) => {
-  console.log('edit row', data)
+  // console.log('edit row', data)
+  incidentData.value = data
+  isModalActive.value = true
 }
+const saveData = () => {
+  // console.log('save', incidentData.value);
+
+  // Find the index of the incident in the incidentList that matches incidentData.number
+  const index = props.loader.incidentList.findIndex(incident => incident.id === incidentData.value.id);
+
+  // If found, update the incident
+  if (index !== -1) {
+    props.loader.incidentList[index] = incidentData.value;
+    // props.loader.incidentList[index] = { ...props.loader.incidentList[index], ...incidentData.value };
+  } else {
+    // Optionally handle case where incident is not found
+    console.warn('Incident not found');
+  }
+
+  // Close the modal
+  isModalActive.value = false;
+};
+
+
 </script>
 <style scoped>
 .table_container {

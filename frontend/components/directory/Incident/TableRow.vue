@@ -67,6 +67,7 @@ const isUnderEdition = ref(false)
 const incidentData = computed(() => {
   return {
     number: props.loaderNumber,
+    id: props.incident.id,
     dateStart: props.incident.startDate,
     dateEnd: props.incident.endDate,
     description: props.incident.description,
