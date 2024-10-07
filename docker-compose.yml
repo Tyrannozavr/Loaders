@@ -1,21 +1,18 @@
-version: '3.8'
-
 services:
   backend:
     build:
       context: .
       dockerfile: ./backend/Dockerfile
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
     env_file:
       - .env
     volumes:
       - ./backend/media:/usr/src/app/media
       - ./backend/staticfiles:/usr/src/app/staticfiles
       - ./backend/collected_static:/usr/src/app/collected_static
-      - ./backend/db.sqlite3:/usr/src/app/db.sqlite3
       - ./backend/logs:/usr/src/app/logs
     environment:
-      - REDIS=redis
+      - DB=db
     expose:
       - "8000"
     depends_on:
@@ -25,15 +22,10 @@ services:
     build: ./nginx
     ports:
       - "80:80"
-    volumes:
-      - ./backend/media:/media
-      - ./backend/staticfiles:/staticfiles
-      - ./backend/collected_static:/collected_static
-      - ./backend/logs:/logs
-      - ./backend/partners_lending:/partners_lending
     depends_on:
       - backend
       - frontend
+
 
   frontend:
     build:
