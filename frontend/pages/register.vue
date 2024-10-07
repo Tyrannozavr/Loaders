@@ -12,7 +12,7 @@ const password = ref('');
 const repeatPassword = ref('');
 const router = useRouter()
 const passwordMismatch = computed(() => password.value !== repeatPassword.value);
-
+const toast = useToast()
 const register = async () => {
   if (passwordMismatch.value) return; // Prevent submission if passwords do not match
 
@@ -27,8 +27,10 @@ const register = async () => {
       }
     })
     if (response.token === undefined) {
-      console.error(response)
-      console.log(response.token)
+      // console.error(response)
+      // console.log(response.token)
+      toast.add({title: response.error})
+
     }
     if (response.status === 200) {
       let token = response.token
