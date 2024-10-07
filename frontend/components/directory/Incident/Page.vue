@@ -16,7 +16,10 @@ watch(
       }
     }
 )
-
+const refresh = () => {
+  refreshLoader()
+  emits('refresh')
+}
 const refreshLoader = async () => {
   try {
     const response = await $backend.$get(`loaders/incidents?loaderId=${props.loaderId}`);
@@ -36,7 +39,7 @@ const refreshLoader = async () => {
 }
 if (!(props.loaderId == null)) {
   refreshLoader()
-  emits('refresh')
+
 }
 
 const isModalActive = ref(false)
@@ -77,7 +80,7 @@ const saveData = () => {
       </UButton>
       <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"
                               @close="isModalActive = false" @save="saveData"/>
-      <DirectoryIncidentTable :loader="Loader" @refresh="refreshLoader"/>
+      <DirectoryIncidentTable :loader="Loader" @refresh="refresh"/>
     </div>
   </slot>
   <slot v-else></slot>
