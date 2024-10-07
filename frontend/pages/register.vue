@@ -28,6 +28,7 @@ const register = async () => {
     })
     if (response.status !== 200) {
       console.error(response)
+      console.log(response.status)
     }
     if (response.status === 200) {
       let token = response.token
