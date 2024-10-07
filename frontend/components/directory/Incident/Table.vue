@@ -1,5 +1,6 @@
 <script setup>
-const props = defineProps(['loader']);
+defineProps(['loader']);
+const emits = defineEmits(['refresh'])
 const toast = useToast()
 const incidentData = ref()
 const isModalActive = ref(false)
@@ -28,6 +29,7 @@ const saveData = () => {
       "description": incidentData.value.description
     }
   })
+  emits('refresh')
   isModalActive.value = false
 };
 const closeModal = () => {

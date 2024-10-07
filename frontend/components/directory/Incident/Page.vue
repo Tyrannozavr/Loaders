@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const props = defineProps(['loaderId', 'loaderNumber'])
+const emits = defineEmits(['refresh'])
 const $backend = Fetch()
 const Loader = ref({
   id: props.loaderId,
@@ -35,6 +36,7 @@ const refreshLoader = async () => {
 }
 if (!(props.loaderId == null)) {
   refreshLoader()
+  emits('refresh')
 }
 
 const isModalActive = ref(false)
@@ -75,7 +77,7 @@ const saveData = () => {
       </UButton>
       <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"
                               @close="isModalActive = false" @save="saveData"/>
-      <DirectoryIncidentTable :loader="Loader"/>
+      <DirectoryIncidentTable :loader="Loader" @refresh="refreshLoader"/>
     </div>
   </slot>
   <slot v-else></slot>

@@ -17,7 +17,7 @@ const refresh = async () => {
     item.user = item.updated_by
     item.isActive = item.is_active
   })
-  activeRowId.value = null
+  activeRow.value = {id: null, number: null}
 }
 refresh()
 const addRow = () => {
@@ -51,7 +51,8 @@ const activateRow = (row) => {
         @activateRow="activateRow"
         class="w-3/5"
     />
-    <DirectoryIncidentPage :loader-id="activeRow.id" :loader-number="activeRow.number" class="w-2/5"/>
+    <DirectoryIncidentPage :loader-id="activeRow.id" :loader-number="activeRow.number"
+                           class="w-2/5" @refresh="refresh"/>
   </div>
 
 </template>
