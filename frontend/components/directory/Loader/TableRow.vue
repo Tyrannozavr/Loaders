@@ -81,10 +81,20 @@ const saveRow = async () => {
     }
   }
 }
-const deleteRow = () => {
+const deleteRow = async () => {
   if (!props.loader.creation) {
     if (!underEdition.value) {
-      console.log('delete row')
+      try {
+        const response = await $backend.$delete(`loaders/${localLoader.value.id}/`)
+        if (response.status === 204) {
+          toast.add({title: "Успешно удалено"})
+        } else {
+          if (response.status === 400)
+          toast.add({title: "Если для погрузчика имеются зарегистрированные простои – удаление запрещено"})
+        }
+      } catch (error) {
+        console.error(error)
+      }
       underEdition.value = false
     } else {
       // console.log('cancel edition')

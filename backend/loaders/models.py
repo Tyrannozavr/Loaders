@@ -23,4 +23,4 @@ class Incidents(models.Model):
     started_at = models.DateTimeField()
     finished_at = models.DateTimeField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    loader = models.ForeignKey(Loader, on_delete=models.SET_NULL, null=True, blank=True)
+    loader = models.ForeignKey(Loader, on_delete=models.SET_NULL, related_name='incidents', null=True, blank=True)

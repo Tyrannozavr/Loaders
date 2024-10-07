@@ -38,6 +38,10 @@ class LoaderRetrieveUpdateDestroyView(APIView):
     serializer_class = LoaderSerializer
     permission_classes = [IsAuthenticated]  # Require authentication
 
+    def get_object(self, pk):
+        # Your logic to get the loader object by primary key (pk)
+        return Loader.objects.get(pk=pk)
+
     def put(self, request, pk):
         loader = self.get_object(pk)  # Assuming you have a method to get the loader instance
         request.data['brand'] = Brand.objects.get_or_create(name=request.data.get('brand'))[0]
@@ -58,6 +62,11 @@ class LoaderRetrieveUpdateDestroyView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def get_object(self, pk):
-        # Your logic to get the loader object by primary key (pk)
-        return Loader.objects.get(pk=pk)
+    def delete(self, request, pk):
+        loader = self.get_object(pk)
+        if loader.incidents.exists():
+            return Response({'reason': 'incidents'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            loader.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+

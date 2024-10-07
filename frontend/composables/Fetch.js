@@ -75,7 +75,7 @@ export default () => {
         delete: (request, opt) => {
             return fetchWithAuth(request, 'DELETE', opt);
         },
-        $delete: (request, opt) => {
+        $delete: (request, opt = {}) => {
             return fetchWithAuth(request, 'DELETE', opt);
         },
     }
