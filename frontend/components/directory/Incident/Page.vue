@@ -36,13 +36,6 @@ const refreshLoader = async () => {
 if (!(props.loaderId == null)) {
   refreshLoader()
 }
-// const incidentData = ref({
-//   number: props.loaderId,
-//   id: '',
-//   dateStart: '',
-//   dateEnd: '',
-//   description: '',
-// })
 
 const isModalActive = ref(false)
 const addRow = () => {
@@ -56,18 +49,7 @@ const incidentData = ref({
   description: '',
 })
 const saveData = () => {
-  // console.log('create', incidentData.value)
-// dateEnd: null
-// dateStart: Date Mon Oct 07 2024 12:33:16 GMT+0300 (Москва, стандартное время)
-// description: "asdf"
-// loaderId: 19
-//   {
-//   "started_at": "2024-10-07T06:41:22Z",
-//   "finished_at": null,
-//   "description": "helloworld",
-//   "loader": 19
-// }
-
+  // create incident
   $backend.$post('loaders/incidents/', {
     body: {
       "started_at": incidentData.value.dateStart,
@@ -76,6 +58,7 @@ const saveData = () => {
       "loader": Loader.value.id
     }
   })
+  refreshLoader()
   isModalActive.value = false
 }
 </script>
