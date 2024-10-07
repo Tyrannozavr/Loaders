@@ -3,9 +3,11 @@ from rest_framework import generics, serializers, status
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Loader, Brand
 from .serializers import LoaderSerializer
+
 
 class LoaderListCreateView(generics.ListCreateAPIView):
     queryset = Loader.objects.all()
@@ -31,13 +33,31 @@ class LoaderListCreateView(generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class LoaderRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class LoaderRetrieveUpdateDestroyView(APIView):
     queryset = Loader.objects.all()
     serializer_class = LoaderSerializer
     permission_classes = [IsAuthenticated]  # Require authentication
 
-    def perform_destroy(self, instance):
-        # Check if the loader has related accidents before deleting
-        if instance.accidents.exists():  # Assuming 'accidents' is a related name for a ForeignKey relationship
-            raise serializers.ValidationError("Cannot delete loader with associated accidents.")
-        instance.delete()
+    def put(self, request, pk):
+        loader = self.get_object(pk)  # Assuming you have a method to get the loader instance
+        request.data['brand'] = Brand.objects.get_or_create(name=request.data.get('brand'))[0]
+        request.data['updated_by'] = request.user
+        serializer = LoaderSerializer(loader, data=request.data, partial=False)
+
+        if serializer.is_valid():
+            # Accessing the validated data
+            brand = Brand.objects.get_or_create(name=request.data.get('brand'))[0]
+            user = request.user
+
+            # Save the serializer if needed
+            instance = serializer.save()
+            instance.updated_by = user
+            instance.brand = brand
+            instance.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_object(self, pk):
+        # Your logic to get the loader object by primary key (pk)
+        return Loader.objects.get(pk=pk)

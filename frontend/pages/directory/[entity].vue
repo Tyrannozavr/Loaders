@@ -11,7 +11,6 @@ const Loaders = ref()
 const $backend = Fetch()
 
 const refresh = async () => {
-  console.log('refresh called')
   Loaders.value = await $backend.get('loaders/')
   Loaders.value.map((item) => {
     item.datetime = new Date(item.updated_at)

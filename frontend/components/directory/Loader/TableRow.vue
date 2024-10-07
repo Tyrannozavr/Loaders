@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import formatDate from "~/utils/FormatData";
+
 const $backend = Fetch()
 const props = defineProps({
   loader: {
@@ -49,11 +50,34 @@ const saveRow = async () => {
         }
       })
       if (response.status === 201) {
-      toast.add({title: "Отправлено успешно"})
-      emits('refresh')
+        toast.add({title: "Отправлено успешно"})
+        emits('refresh')
       }
     } catch (error) {
       console.error('Ошибка:', error);
+    }
+  } else {
+    // row edition
+    if ((!localLoader.value.brand) || (!localLoader.value.number) || (!localLoader.value.capacity)) {
+      toast.add({title: "Заполните все поля!"})
+    } else {
+      console.log(localLoader.value)
+      console.log(localLoader.value.id)
+      try {
+        const response = await $backend.$put(`loaders/${localLoader.value.id}/`, {
+          body: {
+            brand: localLoader.value.brand,
+            number: localLoader.value.number,
+            capacity: localLoader.value.capacity
+          }
+        })
+        if (response.status === 200) {
+          toast.add({title: "Изменено успешно"})
+          emits('refresh')
+        }
+      } catch (error) {
+        console.error('Ошибка:', error);
+      }
     }
   }
 }
