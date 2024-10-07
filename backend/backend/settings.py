@@ -27,7 +27,7 @@ SECRET_KEY = 'as;dflkajsldfkajlelfkjdhfldsjkhlfd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 
-ALLOWED_HOSTS = ['localhost', '0.0.0.0', '127.0.0.1'] + os.environ.get('ALLOWED_HOSTS', '').split()
+ALLOWED_HOSTS = ['localhost', '0.0.0.0', '127.0.0.1', '109.120.140.196'] + os.environ.get('ALLOWED_HOSTS', '').split()
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_PRIVATE_NETWORK = True
