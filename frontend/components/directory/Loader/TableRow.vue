@@ -11,6 +11,7 @@ const props = defineProps({
 const localLoader = ref(props.loader)
 const emits = defineEmits(['refresh'])
 
+const underEdition = ref(false)
 
 const actions = ref([{
   label: 'Не сохранять',
