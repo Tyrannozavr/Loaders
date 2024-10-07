@@ -17,7 +17,6 @@ watch(
     }
 )
 const refresh = () => {
-  console.log('refresh page')
   refreshLoader()
   emits('refresh')
 }

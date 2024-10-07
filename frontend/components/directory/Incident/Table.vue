@@ -32,7 +32,6 @@ const saveData = async () => {
   let data = await response.json()
   if (data) {
     emits('refresh')
-    console.log('table refresh')
   }
   isModalActive.value = false
 };
