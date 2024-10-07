@@ -23,8 +23,14 @@ refresh()
 const addRow = () => {
   Loaders.value.push({creation: true})
 }
-const activeRowId = ref()
-const activateRow = (rowId) => activeRowId.value = rowId
+const activeRow = ref({
+  id: null,
+  number: null
+})
+const activateRow = (row) => {
+  activeRow.value.id = row.id
+  activeRow.value.number = row.number
+}
 
 </script>
 
@@ -45,7 +51,7 @@ const activateRow = (rowId) => activeRowId.value = rowId
         @activateRow="activateRow"
         class="w-3/5"
     />
-    <DirectoryIncidentPage :loader-id="activeRowId" class="w-2/5"/>
+    <DirectoryIncidentPage :loader-id="activeRow.id" :loader-number="activeRow.number" class="w-2/5"/>
   </div>
 
 </template>

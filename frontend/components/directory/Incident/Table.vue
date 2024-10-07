@@ -1,32 +1,3 @@
-<template>
-  <div class="table_container">
-    <table class="bg-white">
-      <thead>
-      <tr>
-        <th>Код записи</th>
-        <th>Дата начала</th>
-        <th>Дата окончания</th>
-        <th>Время простоя</th>
-        <th>Описание</th>
-        <th>Действия</th>
-      </tr>
-      </thead>
-      <tbody>
-      <DirectoryIncidentTableRow v-for="incident in $props.loader.incidentList"
-                                 :incident="incident"
-                                 :loader-number="loader.number"
-                                 @edit="editRow"
-                                 @delete="deleteRow"
-      />
-      </tbody>
-    </table>
-    <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"
-                            @close="closeModal"
-                            @save="saveData"
-    />
-  </div>
-</template>
-
 <script setup>
 const props = defineProps(['loader']);
 const toast = useToast()
@@ -49,14 +20,47 @@ const editRow = (data) => {
   isModalActive.value = true
 }
 const saveData = () => {
-  console.log('save', incidentData.value);
+  // edit row
+  // console.log('save', incidentData.value);
+  console.log('save modal in table')
+  isModalActive.value = false
 };
 const closeModal = () => {
-  console.log('close modal')
+  // console.log('close modal')
+  console.log('close modal from table')
   isModalActive.value = false
 }
 
 </script>
+<template>
+  <div class="table_container">
+    <table class="bg-white">
+      <thead>
+      <tr>
+        <th>Код записи</th>
+        <th>Дата начала</th>
+        <th>Дата окончания</th>
+        <th>Время простоя</th>
+        <th>Описание</th>
+        <th>Действия</th>
+      </tr>
+      </thead>
+      <tbody>
+      <DirectoryIncidentTableRow v-for="incident in $props.loader.incidentList"
+                                 :incident="incident"
+                                 :loader-id="loader.id"
+                                 @edit="editRow"
+                                 @delete="deleteRow"
+      />
+      </tbody>
+    </table>
+    <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"
+                            @close="closeModal"
+                            @save="saveData"
+    />
+  </div>
+</template>
+
 <style scoped>
 .table_container {
   max-height: 600px; /* Set a maximum height for the container */

@@ -1,7 +1,7 @@
 <script setup>
 import formatDate from "~/utils/FormatData";
 
-const props = defineProps(['incident', 'loaderNumber'])
+const props = defineProps(['incident', 'loaderId'])
 defineEmits(['edit', 'delete'])
 const downTime = computed(() => {
   if (!props.incident.startDate instanceof Date) {
@@ -66,7 +66,7 @@ const downTime = computed(() => {
 const isUnderEdition = ref(false)
 const incidentData = computed(() => {
   return {
-    number: props.loaderNumber,
+    loaderId: props.loaderId,
     id: props.incident.id,
     dateStart: props.incident.startDate,
     dateEnd: props.incident.endDate,

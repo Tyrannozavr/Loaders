@@ -24,7 +24,6 @@ const saveModal = () => {
 </script>
 
 <template>
-<!--  model value is {{modelValue}}-->
   <UModal v-model="isActive">
     <div class="p-4 bg-gray-200 rounded-2xl text-gray-500 font-semibold">
       <div class="modal_header text-center">

@@ -30,7 +30,7 @@ GET http://localhost:8000/api/loaders/incidents/?loader=1
 Authorization: Token {{token}}
 Content-Type: application/json
 ###
-POST http://localhost:8000/api/loaders/incidents/?loaderId=1
+POST http://localhost:8000/api/loaders/incidents/
 Authorization: Token {{token}}
 Content-Type: application/json
 

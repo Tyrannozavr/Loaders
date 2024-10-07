@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const props = defineProps(['loaderId'])
+const props = defineProps(['loaderId', 'loaderNumber'])
 const $backend = Fetch()
 const Loader = ref({
-  number: props.loaderId,
+  id: props.loaderId,
   incidentList: []
 })
 watch(
@@ -26,7 +26,7 @@ const refreshLoader = async () => {
       return item
     })
     Loader.value = {
-      number: props.loaderId,
+      id: props.loaderId,
       incidentList: data
     };
   } catch (error) {
@@ -36,18 +36,46 @@ const refreshLoader = async () => {
 if (!(props.loaderId == null)) {
   refreshLoader()
 }
+// const incidentData = ref({
+//   number: props.loaderId,
+//   id: '',
+//   dateStart: '',
+//   dateEnd: '',
+//   description: '',
+// })
 
 const isModalActive = ref(false)
 const addRow = () => {
+  // create new instance
   isModalActive.value = true
 }
 const incidentData = ref({
-  number: Loader.number,
+  loaderId: Loader.value.id,
   dateStart: new Date(),
   dateEnd: null,
   description: '',
 })
 const saveData = () => {
+  // console.log('create', incidentData.value)
+// dateEnd: null
+// dateStart: Date Mon Oct 07 2024 12:33:16 GMT+0300 (Москва, стандартное время)
+// description: "asdf"
+// loaderId: 19
+//   {
+//   "started_at": "2024-10-07T06:41:22Z",
+//   "finished_at": null,
+//   "description": "helloworld",
+//   "loader": 19
+// }
+
+  $backend.$post('loaders/incidents/', {
+    body: {
+      "started_at": incidentData.value.dateStart,
+      "finished_at": incidentData.value.dateEnd,
+      "description": incidentData.value.description,
+      "loader": Loader.value.id
+    }
+  })
   isModalActive.value = false
 }
 </script>

@@ -2,7 +2,7 @@
 defineProps(['loaders']);
 const emits = defineEmits(['refresh', 'activateRow'])
 
-const activateRow = (loader) => emits('activateRow', loader.id)
+const activateRow = (loader) => emits('activateRow', loader)
 </script>
 <template>
   <div class="table-container ">
