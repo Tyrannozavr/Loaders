@@ -5,8 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Loader, Brand
-from .serializers import LoaderSerializer
+from .models import Loader, Brand, Incidents
+from .serializers import LoaderSerializer, IncidentSerializer
 
 
 class LoaderListCreateView(generics.ListCreateAPIView):
@@ -69,4 +69,23 @@ class LoaderRetrieveUpdateDestroyView(APIView):
         else:
             loader.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class IncidentListCreateView(generics.ListCreateAPIView):
+    queryset = Incidents.objects.all()
+    permission_classes = [IsAuthenticated]
+    serializer_class = IncidentSerializer
+
+    def get_queryset(self):
+        loader_id = self.request.query_params.get('loaderId', None)
+        if loader_id:
+            return Incidents.objects.filter(loader_id=loader_id)
+        else:
+            return Incidents.objects.all()
+
+
+class IncidentRetrieveUpdateDestroyView(APIView):
+    queryset = Incidents.objects.all()
+    permission_classes = [IsAuthenticated]
+
 

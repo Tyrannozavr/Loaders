@@ -1,6 +1,7 @@
 # serializers.py
 from rest_framework import serializers
-from .models import Loader
+from .models import Loader, Incidents
+
 
 class LoaderSerializer(serializers.ModelSerializer):
     brand = serializers.CharField(source='brand.name', read_only=True)
@@ -19,3 +20,8 @@ class LoaderSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Loader.objects.create(**validated_data)
+
+class IncidentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Incidents
+        fields = '__all__'

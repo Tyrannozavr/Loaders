@@ -24,3 +24,20 @@ Content-Type: application/json
 GET http://localhost:8000/api/loaders/
 Authorization: Token 941d623aae0a853459166354c7a91888e3757881
 Content-Type: application/json
+###
+@token = 941d623aae0a853459166354c7a91888e3757881
+GET http://localhost:8000/api/loaders/incidents/?loader=1
+Authorization: Token {{token}}
+Content-Type: application/json
+###
+POST http://localhost:8000/api/loaders/incidents/?loaderId=1
+Authorization: Token {{token}}
+Content-Type: application/json
+
+{
+  "started_at": "2024-10-07T06:41:22Z",
+  "finished_at": null,
+  "description": "helloworld",
+  "loader": 19
+}
+###
