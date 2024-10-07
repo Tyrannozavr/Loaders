@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import {format} from "date-fns";
 
 const props = defineProps({
@@ -18,9 +18,13 @@ const isActive = computed({
   }
 })
 const emit = defineEmits(['update:model-value', 'close', 'save']);
+const saveModal = () => {
+  emit('save')
+}
 </script>
 
 <template>
+<!--  model value is {{modelValue}}-->
   <UModal v-model="isActive">
     <div class="p-4 bg-gray-200 rounded-2xl text-gray-500 font-semibold">
       <div class="modal_header text-center">
@@ -59,8 +63,9 @@ const emit = defineEmits(['update:model-value', 'close', 'save']);
         <UButton
             class="w-32 flex justify-center items-center bg-red-700"
             label="Сохранить"
-            @click="emit('save')"
+            @click="saveModal"
         />
+
         <UButton
             class="w-32 flex justify-center items-center bg-gray-500 text-black"
             label="Выход"

@@ -21,7 +21,9 @@
       </tbody>
     </table>
     <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"
-                            @close="isModalActive = false" @save="saveData"/>
+                            @close="closeModal"
+                            @save="saveData"
+    />
   </div>
 </template>
 
@@ -44,27 +46,16 @@ const rowToDelete = ref()
 const editRow = (data) => {
   // console.log('edit row', data)
   incidentData.value = data
+  console.log('edit as', data)
   isModalActive.value = true
 }
 const saveData = () => {
-  // console.log('save', incidentData.value);
-
-  // Find the index of the incident in the incidentList that matches incidentData.number
-  const index = props.loader.incidentList.findIndex(incident => incident.id === incidentData.value.id);
-
-  // If found, update the incident
-  if (index !== -1) {
-    props.loader.incidentList[index] = incidentData.value;
-    // props.loader.incidentList[index] = { ...props.loader.incidentList[index], ...incidentData.value };
-  } else {
-    // Optionally handle case where incident is not found
-    console.warn('Incident not found');
-  }
-
-  // Close the modal
-  isModalActive.value = false;
+  console.log('save', incidentData.value);
 };
-
+const closeModal = () => {
+  console.log('close modal')
+  isModalActive.value = false
+}
 
 </script>
 <style scoped>

@@ -22,13 +22,19 @@ const refreshLoader = async () => {
     let data = await response.json();
     data = data.map((item) => {
       item.startDate = new Date(item.started_at)
-      item.endDate = new Date(item.finished_at) ? item.finished_at : ''
+      item.endDate = item.finished_at ? new Date(item.finished_at) : ''
       return item
     })
     Loader.value = {
       number: props.loaderId,
       incidentList: data
     };
+    // Loader.value.incidentList = Loader.value.incidentList.map((item) => {
+    //   item.startDate = new Date(item.started_at)
+    //   item.endDate = item.finished_at ? new Date(item.finished_at) : ''
+    //   return item
+    // })
+    // console.log(1, typeof Loader.value.incidentList[0].endDate)
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -82,7 +88,7 @@ const saveData = () => {
       <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"
                               @close="isModalActive = false" @save="saveData"/>
       <DirectoryIncidentTable :loader="Loader"/>
-
+<!--{{2+ ' '+ typeof Loader.incidentList[0].startDate}}-->
     </div>
   </slot>
   <slot v-else></slot>
