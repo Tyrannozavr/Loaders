@@ -15,7 +15,6 @@ const passwordMismatch = computed(() => password.value !== repeatPassword.value)
 const toast = useToast()
 const register = async () => {
   if (passwordMismatch.value) return; // Prevent submission if passwords do not match
-
   try {
     const response = await $backend.post('users/registration/', {
       body: {
@@ -27,12 +26,13 @@ const register = async () => {
       }
     })
     if (response.token === undefined) {
-      // console.error(response)
+      console.error(response)
       // console.log(response.token)
       toast.add({title: response.error})
-
-    }
-    if (response.status === 200) {
+    } else  {
+      // console.log('all right')
+      // console.log(response.token)
+      // console.log(response)
       let token = response.token
       nuxtStorage.localStorage.setData('access_token', token);
       await router.push('/directory/loaders')
