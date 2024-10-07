@@ -1,5 +1,9 @@
 <script setup lang="ts">
-defineProps(['isUnderEdition'])
+defineProps({
+  isUnderEdition: {
+    default: false
+  }
+})
 defineEmits(['edit', 'save', 'cancel'])
 </script>
 

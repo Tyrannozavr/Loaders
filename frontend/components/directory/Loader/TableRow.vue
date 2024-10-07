@@ -25,7 +25,6 @@ const actions = ref([{
   label: 'Вернуться к редактированию',
 }])
 
-const underEdition = ref(false)
 if (props.loader.creation) {
   underEdition.value = true
 }
