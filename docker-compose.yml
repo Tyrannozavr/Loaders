@@ -60,7 +60,5 @@ services:
       - db
 
 networks:
-  backend:
-    driver: bridge
   db:
     driver: bridge
