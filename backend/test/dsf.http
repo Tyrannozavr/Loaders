@@ -1,0 +1,10 @@
+POST http://109.120.140.196/api/users/registration/
+Content-Type: application/json
+
+{
+  "first_name": "dzmitry",
+  "last_name": "blabla",
+  "surname": "hello",
+  "email": "dzmitry@gmail.com",
+  "password": "password"
+}
