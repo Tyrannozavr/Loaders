@@ -12,6 +12,7 @@ RUN apt-get update && \
 
 # Create application directories
 RUN mkdir -p /usr/src/app/media
+RUN mkdir -p /usr/src/app/static
 WORKDIR /usr/src/app
 
 # Copy requirements file and install Python dependencies
