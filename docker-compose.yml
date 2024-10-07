@@ -17,6 +17,8 @@ services:
       - "8000"
     depends_on:
       - db
+    networks:
+      - db
 
   nginx:
     build: ./nginx
