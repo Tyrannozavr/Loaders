@@ -20,21 +20,23 @@ const editRow = (data) => {
   incidentData.value = data
   isModalActive.value = true
 }
-const saveData = () => {
+const saveData = async () => {
   // edit row
-  $backend.$put(`loaders/incidents/${incidentData.value.id}/`, {
+  const response = await $backend.$put(`loaders/incidents/${incidentData.value.id}/`, {
     body: {
       "started_at": incidentData.value.dateStart,
-      "finished_at": incidentData.value.dateEnd,
+      "finished_at": incidentData.value.dateEnd !== '' ? incidentData.value.dateEnd : null,
       "description": incidentData.value.description
     }
   })
-  emits('refresh')
+  let data = await response.json()
+  if (data) {
+    emits('refresh')
+    console.log('table refresh')
+  }
   isModalActive.value = false
 };
 const closeModal = () => {
-  // console.log('close modal')
-  console.log('close modal from table')
   isModalActive.value = false
 }
 

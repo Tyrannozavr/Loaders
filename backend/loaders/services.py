@@ -20,6 +20,8 @@ def process_loader_status(loader_id: int):
 
 def update_loader_status(incident_id: int):
     incident = Incidents.objects.get(id=incident_id)
+    print('update status')
+    print(incident.finished_at, bool(incident.finished_at))
     if incident.started_at and not incident.finished_at:
         loader = incident.loader
         loader.is_active = False
