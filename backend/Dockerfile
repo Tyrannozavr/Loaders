@@ -27,5 +27,5 @@ COPY ./backend /usr/src/app/
 RUN chmod +x /usr/src/app/scrypt.sh
 
 ## Set the entry point
-#ENTRYPOINT ["/usr/src/app/scrypt.sh"]
+ENTRYPOINT ["/usr/src/app/scrypt.sh"]
 # I've enabled ssh tunnel for prod, so it's more doesn't necessary
