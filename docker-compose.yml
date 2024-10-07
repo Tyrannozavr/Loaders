@@ -13,8 +13,10 @@ services:
       - ./backend/logs:/usr/src/app/logs
     environment:
       - DB=db
-    expose:
-      - "8000"
+#    expose:
+#      - "8000"
+    ports:
+      - "8000:8000"
     depends_on:
       - db
     networks:
