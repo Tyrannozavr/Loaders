@@ -3,6 +3,7 @@ const props = defineProps(['loader']);
 const toast = useToast()
 const incidentData = ref()
 const isModalActive = ref(false)
+const $backend = Fetch()
 const actions = ref([{
   label: 'Удалить',
   click: () => alert('Delete!' + rowToDelete.value)
@@ -15,14 +16,18 @@ const deleteRow = (rowId) => {
 }
 const rowToDelete = ref()
 const editRow = (data) => {
-  // console.log('edit row', data)
   incidentData.value = data
   isModalActive.value = true
 }
 const saveData = () => {
   // edit row
-  // console.log('save', incidentData.value);
-  console.log('save modal in table')
+  $backend.$put(`loaders/incidents/${incidentData.value.id}/`, {
+    body: {
+      "started_at": incidentData.value.dateStart,
+      "finished_at": incidentData.value.dateEnd,
+      "description": incidentData.value.description
+    }
+  })
   isModalActive.value = false
 };
 const closeModal = () => {
