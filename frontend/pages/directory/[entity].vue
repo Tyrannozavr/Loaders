@@ -10,6 +10,30 @@ if (entity == 'loaders') {
 const Loaders = ref()
 const $backend = Fetch()
 
+const searchLoaders = async (number) => {
+  if (number === '') {
+    Loaders.value = await $backend.get('loaders/').then((response) => {
+      response = response.map((item) => {
+        item.datetime = new Date(item.updated_at)
+        item.user = item.updated_by
+        item.isActive = item.is_active
+        return item
+      })
+      return response
+    })
+  } else {
+    Loaders.value = await $backend.get(`loaders/search?number=${number}`)
+        .then((response) => {
+          response = response.map((item) => {
+            item.datetime = new Date(item.updated_at)
+            item.user = item.updated_by
+            item.isActive = item.is_active
+            return item
+          })
+          return response
+        })
+  }
+}
 const refresh = async () => {
   Loaders.value = await $backend.get('loaders/')
   Loaders.value.map((item) => {
@@ -36,7 +60,7 @@ const activateRow = (row) => {
 
 <template>
   <h1 class="font-bold text-2xl">Справочник {{ directory.name }}</h1>
-  <DirectorySearch/>
+  <DirectorySearch @search="searchLoaders"/>
   <UButton
       class="add_button bg-red-700 w-32 rounded-xl flex items-center justify-center"
       size="md"

@@ -1,11 +1,14 @@
 # views.py
-from rest_framework import generics, serializers, status
-from rest_framework.decorators import permission_classes
+from rest_framework import generics
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Loader, Brand, Incidents
+from .models import Brand, Incidents
+from .models import Loader  # Assuming your Loader model is in the same app
 from .serializers import LoaderSerializer, IncidentSerializer
 
 
@@ -69,6 +72,26 @@ class LoaderRetrieveUpdateDestroyView(APIView):
         else:
             loader.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def search_loaders(request):
+    queryset = Loader.objects.all()
+
+    # Get the search term from query parameters
+    search_term = request.GET.get('number', None)
+
+    if search_term:
+        # Filter loaders by number, case insensitive
+        queryset = queryset.filter(number__icontains=search_term)
+
+    # Serialize the queryset
+    loaders_data = [{'id': loader.id, 'number': loader.number} for loader in queryset]
+
+    return Response(loaders_data, status=status.HTTP_200_OK)
 
 
 class IncidentListCreateView(generics.ListCreateAPIView):

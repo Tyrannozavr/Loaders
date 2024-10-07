@@ -1,10 +1,14 @@
 <script setup lang="ts">
-const $backend = Fetch()
-
+const emits = defineEmits(['search'])
 const search = () => {
-  // const response = $backend.$post('loaders/')
-  // console.log(response, typeof response)
+  emits('search', searchField.value)
 }
+const resetFilter = () => {
+  searchField.value = ''
+  search()
+}
+// GET /api/loaders/search?number=your_search_term
+const searchField = ref('')
 </script>
 
 <template>
@@ -14,6 +18,7 @@ const search = () => {
       <input
           type="text"
           class="rounded-3xl w-28 bg-white h-7"
+          v-model="searchField"
       /></div>
     <UButton
         class="bg-red-700 search_button"
@@ -25,7 +30,7 @@ const search = () => {
         :trailing="false"
         @click="search"
     />
-    <div class="search_reset">
+    <div class="search_reset" @click="resetFilter">
       <UIcon
           name="mi:close"
           class="text-red-700"
