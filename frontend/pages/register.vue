@@ -26,9 +26,9 @@ const register = async () => {
         password: password.value,
       }
     })
-    if (response.status !== 200) {
+    if (response.token === undefined) {
       console.error(response)
-      console.log(response.status)
+      console.log(response.token)
     }
     if (response.status === 200) {
       let token = response.token
