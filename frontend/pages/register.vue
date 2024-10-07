@@ -17,7 +17,7 @@ const register = async () => {
   if (passwordMismatch.value) return; // Prevent submission if passwords do not match
 
   try {
-    const {data, status, error} = await $backend.post('users/registration/', {
+    const response = await $backend.post('users/registration/', {
       body: {
         first_name: firstName.value,
         surname: surname.value,
@@ -26,11 +26,11 @@ const register = async () => {
         password: password.value,
       }
     })
-    if (status.value === 'error') {
-      console.log(data, error)
+    if (response.status !== 201) {
+      console.error(response)
     }
-    if (status.value === 'success') {
-      let token = data.value.token
+    if (response.status === 201) {
+      let token = response.token
       nuxtStorage.localStorage.setData('access_token', token);
       await router.push('/directory/loaders')
     }
