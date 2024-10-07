@@ -46,7 +46,6 @@ const rowToDelete = ref()
 const editRow = (data) => {
   // console.log('edit row', data)
   incidentData.value = data
-  console.log('edit as', data)
   isModalActive.value = true
 }
 const saveData = () => {

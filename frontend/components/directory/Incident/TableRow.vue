@@ -80,7 +80,7 @@ const incidentData = computed(() => {
   <tr :key="incident.id">
     <td>{{ incident.id }}</td>
     <td>{{ formatDate(incident.startDate) }}</td>
-    <td>{{ formatDate(incident.endDate) }}</td> {{incident.endDate +' '+ typeof incident.endDate}}
+    <td>{{ formatDate(incident.endDate) }}</td>
     <td>{{ downTime }}</td>
     <td>{{ incident.description }}</td>
 

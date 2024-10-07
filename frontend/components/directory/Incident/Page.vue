@@ -29,12 +29,6 @@ const refreshLoader = async () => {
       number: props.loaderId,
       incidentList: data
     };
-    // Loader.value.incidentList = Loader.value.incidentList.map((item) => {
-    //   item.startDate = new Date(item.started_at)
-    //   item.endDate = item.finished_at ? new Date(item.finished_at) : ''
-    //   return item
-    // })
-    // console.log(1, typeof Loader.value.incidentList[0].endDate)
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -42,24 +36,7 @@ const refreshLoader = async () => {
 if (!(props.loaderId == null)) {
   refreshLoader()
 }
-// const loader = ref({
-//   number: 1,
-//   incidentList: [
-//     {
-//       id: 1,
-//       startDate: new Date(),
-//       endDate: new Date(),
-//       description: 'description'
-//     },
-//     {
-//       id: 2,
-//       startDate: new Date(2010, 0, 1, 0, 0, 0, 0),
-//       endDate: new Date,
-//       description: 'description'
-//     },
-//
-//   ]
-// })
+
 const isModalActive = ref(false)
 const addRow = () => {
   isModalActive.value = true
@@ -88,7 +65,6 @@ const saveData = () => {
       <DirectoryIncidentModal v-model="incidentData" :is-active="isModalActive"
                               @close="isModalActive = false" @save="saveData"/>
       <DirectoryIncidentTable :loader="Loader"/>
-<!--{{2+ ' '+ typeof Loader.incidentList[0].startDate}}-->
     </div>
   </slot>
   <slot v-else></slot>
