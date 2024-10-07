@@ -7,7 +7,15 @@ const isModalActive = ref(false)
 const $backend = Fetch()
 const actions = ref([{
   label: 'Удалить',
-  click: () => alert('Delete!' + rowToDelete.value)
+  click: async () => {
+    const response = await $backend.$delete(`loaders/incidents/${rowToDelete.value}/`)
+    console.log('deleted', response)
+    console.log(response.status)
+    if (response.status === 204) {
+      toast.add({title: 'Успешно удалено!'})
+      emits('refresh')
+    }
+  }
 }, {
   label: 'Отмена',
 }])

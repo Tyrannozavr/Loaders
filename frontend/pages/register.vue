@@ -10,7 +10,7 @@ const lastName = ref('');
 const email = ref('');
 const password = ref('');
 const repeatPassword = ref('');
-
+const router = useRouter()
 const passwordMismatch = computed(() => password.value !== repeatPassword.value);
 
 const register = async () => {
@@ -32,6 +32,7 @@ const register = async () => {
     if (status.value === 'success') {
       let token = data.value.token
       nuxtStorage.localStorage.setData('access_token', token);
+      await router.push('/directory/loaders')
     }
   } catch (error) {
     console.error('Ошибка регистрации:', error);

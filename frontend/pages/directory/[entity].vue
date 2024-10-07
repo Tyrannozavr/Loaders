@@ -17,7 +17,7 @@ const refresh = async () => {
     item.user = item.updated_by
     item.isActive = item.is_active
   })
-  activeRow.value = {id: null, number: null}
+  // activeRow.value = {id: null, number: null}
 }
 refresh()
 const addRow = () => {

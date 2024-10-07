@@ -6,7 +6,7 @@ const $backend = Fetch()
 
 const email = ref('');
 const password = ref('');
-
+const router = useRouter()
 const login = async () => {
   try {
     const response = await $backend.post('users/login/', {
@@ -15,16 +15,9 @@ const login = async () => {
         password: password.value
       }
     })
-    // console.log(response.token, typeof response)
     nuxtStorage.localStorage.setData('access_token', response.token)
-    // if (status.value === 'error') {
-    //   console.log(data, error)
-    // }
-    // if (status.value === 'success') {
-    //   let token = data.value.token
-    //   nuxtStorage.localStorage.setData('access_token', token);
-    //   console.log('my token is', nuxtStorage.localStorage.getData('access_token'))
-    // }
+    await router.push('/directory/loaders')
+
   } catch (error) {
     console.error('Ошибка регистрации:', error);
   }
