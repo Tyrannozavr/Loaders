@@ -26,10 +26,10 @@ const register = async () => {
         password: password.value,
       }
     })
-    if (response.status !== 201) {
+    if (response.status !== 200) {
       console.error(response)
     }
-    if (response.status === 201) {
+    if (response.status === 200) {
       let token = response.token
       nuxtStorage.localStorage.setData('access_token', token);
       await router.push('/directory/loaders')
