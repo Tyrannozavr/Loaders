@@ -101,7 +101,7 @@ const deleteRow = async () => {
       toast.add({title: "Не сохранять внесенные изменения? Вы уверены?", actions})
     }
   } else {
-    console.log('cancel creation')
+    // cancel creation
   }
   emits('refresh')
 }
