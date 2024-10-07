@@ -26,7 +26,7 @@ SECRET_KEY = 'as;dflkajsldfkajlelfkjdhfldsjkhlfd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', 1)))
-
+DB = os.environ.get('DB', "localhost")
 ALLOWED_HOSTS = ['localhost', '0.0.0.0', '127.0.0.1', '109.120.140.196'] + os.environ.get('ALLOWED_HOSTS', '').split()
 
 CORS_ALLOW_CREDENTIALS = True
@@ -126,7 +126,7 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_DB'),
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',  # or your database host
+        'HOST': DB,  # or your database host
         'PORT': '5432',  # default PostgreSQL port
     }
 }
