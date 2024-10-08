@@ -13,23 +13,13 @@ services:
       - ./backend/logs:/usr/src/app/logs
     environment:
       - DB=db
-#    expose:
-#      - "8000"
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     depends_on:
       - db
     networks:
       - db
-
-  nginx:
-    build: ./nginx
-    ports:
-      - "80:80"
-    depends_on:
       - backend
-      - frontend
-
 
   frontend:
     build:
@@ -41,6 +31,22 @@ services:
     restart: always
     expose:
       - "3000"
+    networks:
+      - frontend
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - backend
+      - frontend
+
+
+
 
   db:
     image: postgres:latest
@@ -61,4 +67,8 @@ services:
 
 networks:
   db:
+    driver: bridge
+  backend:
+    driver: bridge
+  frontend:
     driver: bridge

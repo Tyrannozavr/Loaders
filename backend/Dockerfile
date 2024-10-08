@@ -27,6 +27,7 @@ COPY ./backend /usr/src/app/
 # Make the script executable
 RUN chmod +x /usr/src/app/scrypt.sh
 
+EXPOSE 8000
 ## Set the entry point
 ENTRYPOINT ["/usr/src/app/scrypt.sh"]
 # I've enabled ssh tunnel for prod, so it's more doesn't necessary
