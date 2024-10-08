@@ -64,7 +64,7 @@ const saveData = () => {
       "loader": Loader.value.id
     }
   })
-  refreshLoader()
+  refresh()
   isModalActive.value = false
 }
 </script>
