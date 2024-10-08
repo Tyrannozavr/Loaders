@@ -1,4 +1,5 @@
 import nuxtStorage from 'nuxt-storage';
+import {get} from "#ui/utils/index.js";
 
 const settings = {
     SERVER: true
@@ -32,10 +33,10 @@ export default () => {
         });
 
         if (!response.ok) {
-            console.error("Error with login", response.json())
-            // await nuxtApp.runWithContext(() =>
-            //     navigateTo('/login')
-            // )
+            console.error("Error with login", response.json(), 'token', getUserToken())
+            await nuxtApp.runWithContext(() =>
+                navigateTo('/login')
+            )
         }
         return response;
     }
