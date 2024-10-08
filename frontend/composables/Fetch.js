@@ -33,9 +33,9 @@ export default () => {
 
         if (!response.ok) {
             console.error("Error with login", response.json())
-            await nuxtApp.runWithContext(() =>
-                navigateTo('/login')
-            )
+            // await nuxtApp.runWithContext(() =>
+            //     navigateTo('/login')
+            // )
         }
         return response;
     }
