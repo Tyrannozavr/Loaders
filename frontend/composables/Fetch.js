@@ -55,7 +55,7 @@ export default () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(opt.body), // Ensure body is stringified
-            }).then(response => response.json());
+            });
         },
         $post: (request, opt = {}) => {
             return fetchWithAuth(request, 'POST', opt);

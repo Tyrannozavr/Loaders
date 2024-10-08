@@ -25,15 +25,17 @@ const register = async () => {
         password: password.value,
       }
     })
-    if (response.token === undefined) {
-      console.error(response)
-      // console.log(response.token)
-      toast.add({title: response.error})
+    if (response.status !== 201) {
+      let data = await response.json()
+      if (data.error.email ===  "email already exists" ) {
+        toast.add({title: "Email уже занят", color: "red"})
+      } else {
+        console.log(data.error)
+        toast.add({title: data.error, color: "red"})
+      }
     } else  {
-      // console.log('all right')
-      // console.log(response.token)
-      // console.log(response)
-      let token = response.token
+      let data = await response.json()
+      let token = data.token
       nuxtStorage.localStorage.setData('access_token', token);
       await router.push('/directory/loaders')
     }
