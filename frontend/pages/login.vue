@@ -3,7 +3,7 @@ import {ref} from 'vue';
 import nuxtStorage from 'nuxt-storage';
 
 const $backend = Fetch()
-
+const toast = useToast()
 const email = ref('');
 const password = ref('');
 const router = useRouter()
@@ -15,9 +15,14 @@ const login = async () => {
         password: password.value
       }
     })
-    let data = await response.json()
+    if (response.status === 200) {
+          let data = await response.json()
     nuxtStorage.localStorage.setData('access_token', data.token)
     await router.push('/directory/loaders')
+    } else {
+      toast.add({title: 'Неверный логин или пароль!', color: 'red'})
+    }
+
 
   } catch (error) {
     console.error('Ошибка регистрации:', error);
