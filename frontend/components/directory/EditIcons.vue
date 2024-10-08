@@ -10,13 +10,13 @@ defineEmits(['edit', 'save', 'cancel'])
 <template>
   <div class="edit_container">
           <button>
-            <UIcon name="rivet-icons:pencil-solid" class="text-gray-500 w-5 h-5"
+            <UIcon name="rivet-icons:pencil-solid" class="text-gray-500 w-5 h-5 hover:text-green-500"
                    v-if="(!$props.isUnderEdition)" @click="$emit('edit')" />
-            <UIcon name="rivet-icons:check" class="text-gray-500 w-5 h-5"
+            <UIcon name="rivet-icons:check" class="text-gray-500 w-5 h-5 hover:text-green-500"
                    v-else @click="$emit('save')"/>
           </button>
           <button @click="$emit('cancel')">
-            <UIcon name="rivet-icons:close" class="text-gray-500 w-5 h-5"/>
+            <UIcon name="rivet-icons:close" class="text-gray-500 w-5 h-5 hover:text-green-500"/>
           </button>
         </div>
 </template>

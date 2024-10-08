@@ -17,12 +17,13 @@ watch(
     }
 )
 const refresh = () => {
+  console.log('refresh on Page')
   refreshLoader()
   emits('refresh')
 }
 const refreshLoader = async () => {
   try {
-    const response = await $backend.$get(`loaders/incidents?loaderId=${props.loaderId}`);
+    const response = await $backend.$get(`loaders/incidents/?loaderId=${props.loaderId}`);
     let data = await response.json();
     data = data.map((item) => {
       item.startDate = new Date(item.started_at)

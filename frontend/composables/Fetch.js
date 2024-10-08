@@ -36,15 +36,17 @@ export default () => {
             ...opt
         });
 
-        if (!response.ok) {
+        if (response.status === 401) {
             console.error("Error with login", response.json(), 'token', getUserToken())
             await nuxtApp.runWithContext(() =>
                 navigateTo('/login')
             )
         }
+        if (!response.ok) {
+            console.error(response.json())
+        }
         return response;
     }
-
     return {
         get: async (request, opt = {}) => {
             if (!opt.hasOwnProperty('server')) {
