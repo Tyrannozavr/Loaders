@@ -15,7 +15,8 @@ const login = async () => {
         password: password.value
       }
     })
-    nuxtStorage.localStorage.setData('access_token', response.token)
+    let data = await response.json()
+    nuxtStorage.localStorage.setData('access_token', data.token)
     await router.push('/directory/loaders')
 
   } catch (error) {

@@ -8,6 +8,10 @@ const settings = {
 
 export function getUserToken() {
     const tokenString = localStorage.getItem('access_token')
+    // console.log(tokenString)
+    // console.log('items', localStorage)
+    // const token = JSON.parse(tokenString)
+    // return token.value
     if (tokenString === null) {
         return ''
     } else {
