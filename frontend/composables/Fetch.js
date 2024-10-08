@@ -4,13 +4,20 @@ const settings = {
     SERVER: true
 }
 
+
 export function getUserToken() {
     const tokenString = localStorage.getItem('access_token')
-    const token = JSON.parse(tokenString)
-    return token.value
+    if (tokenString === null) {
+        return ''
+    } else {
+        const token = JSON.parse(tokenString)
+        return token.value
+    }
+
 }
 
 export default () => {
+    const nuxtApp = useNuxtApp()
     const config = useRuntimeConfig();
     const fetchWithAuth = async (request, method, opt) => {
         opt.body = JSON.stringify(opt.body)
@@ -25,8 +32,10 @@ export default () => {
         });
 
         if (!response.ok) {
-            console.error(response.json())
-            // throw new Error(HTTP error! status: ${response.status});
+            console.error("Error with login", response.json())
+            await nuxtApp.runWithContext(() =>
+                navigateTo('/login')
+            )
         }
         return response;
     }
@@ -45,7 +54,7 @@ export default () => {
                 ...opt
             }).then(response => response.json());
         },
-        $get: (request, opt={}) => {
+        $get: (request, opt = {}) => {
             return fetchWithAuth(request, 'GET', opt);
         },
         post: async (request, opt) => {
